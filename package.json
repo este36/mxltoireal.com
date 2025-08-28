@@ -1,17 +1,27 @@
 {
   "name": "mxltoireal.com",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite --host",
     "build": "vite build",
+    "run": "vite run",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "vite": "^7.1.2"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/este36/mxltoireal.com.git"
   },
-  "dependencies": {
-    "musicxml-irealpro": "^1.0.6"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/este36/mxltoireal.com/issues"
+  },
+  "homepage": "https://github.com/este36/mxltoireal.com#readme",
+  "devDependencies": {
+    "musicxml-irealpro": "^1.0.6",
+    "vite": "^7.1.3"
   }
 }
