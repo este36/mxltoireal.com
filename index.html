@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Convert musicxml to iReal Pro</title>
+</head>
+<body>
+	<div id="dropZone"></div>
+	<label for="input-files">Select File(s)</label>
+	<input id="input-files" type="file">
+	<template id="files-list">
+		<div class="files-list-container">
+			<ul>
+			</ul>
+			<button class="files-list-download" type="button"></button>
+			<button class="files-list-open" type="button"></button>
+		</div>
+	</template>
+	<template id="file-item">
+		<div class="file-item-container">
+			<span class="file-item-size"></span>
+			<span class="file-item-name"></span>
+			<button class="file-item-download" type="button"></button>
+			<button class="file-item-open" type="button"></button>
+			<button class="file-item-options" type="button"></button>
+			<button class="file-item-delete" type="button"></button>
+		</div>
+	</template>
+	<script src="/main.js" type="module"></script>
+</body>
+</html>
