@@ -6,9 +6,11 @@
 	<title>Convert musicxml to iReal Pro</title>
 </head>
 <body>
-	<div id="dropZone"></div>
-	<label for="input-files">Select File(s)</label>
-	<input id="input-files" type="file">
+	<div id="drop-zone"></div>
+	<label for="input-files">
+		Select File(s)
+		<input id="input-files" type="file">
+	</label>
 	<template id="files-list">
 		<div class="files-list-container">
 			<ul>
@@ -27,6 +29,6 @@
 			<button class="file-item-delete" type="button"></button>
 		</div>
 	</template>
-	<script src="/main.js" type="module"></script>
+	<script src="/app.js" type="module"></script>
 </body>
 </html>
