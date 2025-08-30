@@ -1,22 +1,40 @@
-import wasmUrl from 'musicxml-irealpro/wasm-module?url'
-import * as mxl2irp from 'musicxml-irealpro';
 import './style.css'
+import './components/css/FileItem.css'
 
-export const App = {
-	Elements: {
-		input_files: document.getElementById('input-files'),
-		input_files_label: document.querySelector('label[for=input-files]'),
-		drop_zone: document.getElementById('drop-zone')
-	}
-	Templates: {
-		files_list: document.getElementById('files-list'),
-		file_item: document.getElementById('file-item'),
-	}
-};
+import wasmUrl from 'musicxml-irealpro/wasm-module?url'
+import {FileItem} from './components/FileItem.js'
+import * as mxl2irp from 'musicxml-irealpro';
 
-window.App = App;
+export let App;
+export let Templates;
 
-(async () => {
-  await mxl2irp.initWasm(wasmUrl);
-  App.Elements.input_files_label.addEventListener('click')
-}) ();
+document.addEventListener('DOMContentLoaded', async () => {
+	App = {
+		MainElement: document.querySelector('main'),
+		InputFile: document.getElementById('input-files'),
+		InputFileLabel: document.querySelector('label[for=input-files]'),
+		DropZone: document.getElementById('drop-zone'),
+		FilesList: document.getElementById('files-list')
+	};
+	Templates = {
+		FileItem: document.getElementById('file-item')
+	};
+	window.App = App;
+	document.body.style.visibility = 'visible';
+	await mxl2irp.initWasm(wasmUrl);
+	App.InputFile.addEventListener('change', async (event) => {
+		for (const file of event.target.files) {
+			App.FilesList.appendChild(new FileItem());
+			const new_entry = App.FilesList.lastChild;
+			try {
+				new_entry.parse(file);
+			} catch (err) {
+				console.error(err.toString());
+				new_entry.remove();
+			}
+			if (App.FilesList.childNodes.length > 0
+				&& App.MainElement.dataset.isEmpty === 'true')
+				App.MainElement.dataset.isEmpty = 'false';
+		}
+	});
+});
