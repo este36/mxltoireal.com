@@ -1,37 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Convert musicxml to iReal Pro</title>
-	<style>html,body{visibility:hidden;margin:0;padding:0;height:100vh;}</style>
-</head>
-<body>
-	<div id="drop-zone"></div>
-	<header><h1>Convert musicxml files to iReal Pro</h1></header>
-	<main id="app" data-is-empty="true">
-		<label class="btn" for="input-files">
-			Select File(s)
-			<input id="input-files"
-				   type="file"
-				   accept=".mxl,.musicxml,.xml">
-		</label>
-		<div id="files-list"></div>
-		<button class="btn files-list-download" type="button"></button>
-		<button class="btn files-list-open" type="button"></button>
-	</main>
-
-	<template id="file-item">
-		<span class="file-item-size"></span>
-		<span class="file-item-name"></span>
-		<button class="file-item-options" type="button"></button>
-		<button class="file-item-delete" type="button"></button>
-	</template>
-
-	<template id="file-item-options">
-		<button class="file-item-download" type="button"></button>
-		<button class="file-item-open" type="button"></button>
-	</template>
-	<script src="app.js" type="module"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="color-scheme" content="light dark" />
+		<title>Vite + Preact</title>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script prerender type="module" src="/src/index.jsx"></script>
+	</body>
 </html>

@@ -1,27 +1,22 @@
 {
-  "name": "mxltoireal.com",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite --host",
-    "preview": "vite preview --host"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/este36/mxltoireal.com.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/este36/mxltoireal.com/issues"
-  },
-  "homepage": "https://github.com/este36/mxltoireal.com#readme",
-  "devDependencies": {
-    "musicxml-irealpro": "^1.0.6",
-    "vite": "^7.1.3"
-  }
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.12",
+		"musicxml-irealpro": "^1.0.7",
+		"preact": "^10.26.9",
+		"preact-iso": "^2.10.0",
+		"preact-render-to-string": "^6.6.1",
+		"tailwindcss": "^4.1.12"
+	},
+	"devDependencies": {
+		"@preact/preset-vite": "^2.10.2",
+		"daisyui": "^5.1.6",
+		"vite": "^7.0.4"
+	}
 }
