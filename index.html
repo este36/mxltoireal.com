@@ -20,12 +20,15 @@
 		<h2 class="text-2xl py-4 shadow-lg/20">mxltoireal.com</h2>
 		<h1 class="text-3xl py-6">Convert Musicxml files to iReal Pro</h1>
 	</header>
-	<main class="relative flex flex-col items-center justify-center h-[18rem]" id="app" data-is-empty="true">
-		<div class="z-0 absolute w-[90%] md:w-[50%] h-[100%] bg-base-content/10 rounded-xl inset-shadow-sm/10"></div>
+	<main class="relative flex flex-col items-center justify-center data-[is-empty=true]:h-[18rem] h-auto"
+		id="app" data-is-empty="true">
+		<div class="z-0 absolute w-[90%] md:w-[50%] h-[100%] is-filled:hidden is-empty:block
+					bg-base-content/10 rounded-xl inset-shadow-sm/10"></div>
 		<label class="z-1 btn btn-primary scale-110 p-5" for="input-files">
 			Select File(s)...
 			<input class="sr-only" id="input-files" type="file" multiple/>
 		</label>
+		<h6 class="hidden md:block is-filled:hidden mt-1 text-base-content/70">or drag and drop here</h6>
 		<ul class="list" id="files-list"></ul>
 	</main>
 

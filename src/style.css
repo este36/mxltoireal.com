@@ -5,14 +5,14 @@
 	--font-sans: 'QuickSand', Inter, sans-serif
 }
 
-main[data-is-empty=false] {
-	&>div{
-		display: none;
-	}
+@custom-variant is-empty {
+  &:where([data-is-empty=true] *) {
+    @slot;
+  }
 }
 
-main[data-is-empty=true] {
-	&>div{
-		display: block;
-	}
+@custom-variant is-filled {
+  &:where([data-is-empty=false] *) {
+    @slot;
+  }
 }
