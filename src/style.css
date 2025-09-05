@@ -1,2 +1,18 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme {
+	--font-sans: 'QuickSand', Inter, sans-serif
+}
+
+main[data-is-empty=false] {
+	&>div{
+		display: none;
+	}
+}
+
+main[data-is-empty=true] {
+	&>div{
+		display: block;
+	}
+}

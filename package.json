@@ -1,23 +1,26 @@
 {
-	"private": true,
 	"type": "module",
+	"name": "mxltoireal.com",
 	"scripts": {
-		"dev": "vite --host",
 		"build": "vite build",
+		"dev": "vite --host",
 		"preview": "vite preview --host"
 	},
-	"dependencies": {
-		"@preact/signals": "^2.3.1",
-		"@tailwindcss/vite": "^4.1.12",
-		"musicxml-irealpro": "^1.0.8",
-		"preact": "^10.26.9",
-		"preact-iso": "^2.10.0",
-		"preact-render-to-string": "^6.6.1",
-		"tailwindcss": "^4.1.12"
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/este36/mxltoireal.com.git"
 	},
+	"bugs": {
+		"url": "https://github.com/este36/mxltoireal.com/issues"
+	},
+	"homepage": "https://github.com/este36/mxltoireal.com#readme",
 	"devDependencies": {
-		"@preact/preset-vite": "^2.10.2",
 		"daisyui": "^5.1.6",
-		"vite": "^7.0.4"
+		"musicxml-irealpro": "^1.0.9",
+		"vite": "^7.1.3"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.13",
+		"tailwindcss": "^4.1.13"
 	}
 }

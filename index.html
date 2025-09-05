@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="color-scheme" content="light dark" />
-		<title>Vite + Preact</title>
-	</head>
-	<body data-empty="true">
-		<div class="h-[100vh] relative" id="app"></div>
-		<script prerender type="module" src="/src/index.jsx"></script>
-	</body>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+	<title>Convert musicxml to iReal Pro</title>
+	<style>html,body{visibility:hidden;margin:0;padding:0;height:100vh;}</style>
+</head>
+<body>
+	<noscript>
+		<div class="p-1 text-md text-center">
+			This website needs javascript to run properly.
+		</div>
+	</noscript>
+	<div id="drop-zone"></div>
+	<header class="text-center ">
+		<h2 class="text-2xl py-4 shadow-lg/20">mxltoireal.com</h2>
+		<h1 class="text-3xl py-6">Convert Musicxml files to iReal Pro</h1>
+	</header>
+	<main class="relative flex flex-col items-center justify-center h-[18rem]" id="app" data-is-empty="true">
+		<div class="z-0 absolute w-[90%] md:w-[50%] h-[100%] bg-base-content/10 rounded-xl inset-shadow-sm/10"></div>
+		<label class="z-1 btn btn-primary scale-110 p-5" for="input-files">
+			Select File(s)...
+			<input class="sr-only" id="input-files" type="file" multiple/>
+		</label>
+		<ul class="list" id="files-list"></ul>
+	</main>
+
+	<template class="list-row" id="song-template">
+		<div data-id="title"></div>
+		<div data-id="composer"></div>
+		<div data-id="tempo"></div>
+		<button class="btn btn-info" type="button" data-id="edit"></button>
+		<button class="btn btn-error" type="button" data-id="delete"></button>
+	</template>
+	<script src="src/app.js" type="module"></script>
+</body>
 </html>
