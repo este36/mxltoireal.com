@@ -34,7 +34,7 @@ export class Song extends HTMLElement
 		this.classList = [...Templates.Song.classList];
 		this.el(PropEnum.Composer).textContent = mxl2irp.irp_song_get_composer(this.irp_song);
 		this.el(PropEnum.Title).textContent = mxl2irp.irp_song_get_title(this.irp_song);
-		this.el(PropEnum.Tempo).textContent = mxl2irp.irp_song_get_tempo(this.irp_song);
+		this.el(PropEnum.Tempo).textContent = mxl2irp.irp_song_get_tempo(this.irp_song) + ' bpm';
 		this.el(PropEnum.Delete).addEventListener('click', (event) => {
 			this.remove();
 			if (App.FilesList.childNodes.length === 0)

@@ -7,7 +7,6 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 	<title>Convert musicxml to iReal Pro</title>
-	<style>html,body{visibility:hidden;margin:0;padding:0;height:100vh;}</style>
 </head>
 <body>
 	<noscript>
@@ -29,13 +28,21 @@
 			<input class="sr-only" id="input-files" type="file" multiple/>
 		</label>
 		<h6 class="hidden md:block is-filled:hidden mt-1 text-base-content/70">or drag and drop here</h6>
-		<ul class="list" id="files-list"></ul>
+		<div class="hidden is-filled:block mt-8 relative" >
+			<div class="list border-1 rounded-xl overflow-auto h-[40vh]" id="files-list"></div>
+			<div class="pointer-events-none absolute bottom-0 left-0 right-0 h-10
+				bg-gradient-to-t from-base-content/20 to-transparent rounded-xl"></div>
+		</div>
 	</main>
 
 	<template class="list-row" id="song-template">
-		<div data-id="title"></div>
-		<div data-id="composer"></div>
-		<div data-id="tempo"></div>
+		<div class="list-col-grow mr-5">
+			<div class="text-lg font-bold" data-id="title">Title</div>
+			<div class="font-bold" data-id="composer">Composer</div>
+			<div data-id="style">Swing</div>
+		</div>
+		<div class="grid content-end" data-id="tempo">Tempo</div>
+		<div class="grid content-end" data-id="key">Key</div>
 		<button class="btn btn-info" type="button" data-id="edit"></button>
 		<button class="btn btn-error" type="button" data-id="delete"></button>
 	</template>
