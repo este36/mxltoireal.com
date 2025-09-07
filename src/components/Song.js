@@ -35,11 +35,11 @@ export class Song extends HTMLElement
 		this.appendChild(Templates.Song.content.cloneNode(true));
 		this.classList.add(...Templates.Song.classList);
 		this.render();
-		this.el(PropEnum.Delete).addEventListener('click', (event) => {
+		this.el(PropEnum.Delete).onclick = () => {
 			this.remove();
 			if (App.FilesList.childNodes.length === 0)
 				App.MainElement.dataset.isEmpty = 'true';
-		});
+		};
 		this.el(PropEnum.Edit).addEventListener('click', (event) => {
 			console.log("TODO: open file-item options.");
 		});

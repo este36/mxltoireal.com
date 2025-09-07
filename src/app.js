@@ -7,24 +7,22 @@ import * as mxl2irp from 'musicxml-irealpro';
 export let App;
 export let Templates;
 
-function onInputFileChange(event) {
-	for (const file of event.target.files) {
-		const reader = new FileReader();
-		reader.onload = () => {
-			const mxl2irp_result = mxl2irp.getIRealProSong(new Uint8Array(reader.result), file.name);
-			if (mxl2irp_result.error_code != 0) {
-				console.error(mxl2irp.get_error_code_str(mxl2irp_result.error_code));
-				return;
-			}
-			if (App.MainElement.dataset.isEmpty === 'true') {
-				App.MainElement.dataset.isEmpty = 'false';
-			} else {
-				// App.FilesList.appendChild(Templates.Divider.content.cloneNode(true));
-			}
-			App.FilesList.appendChild(new Song(mxl2irp_result.item));
-		};
-    	reader.readAsArrayBuffer(file);
-	}
+function appendSong(file) {
+	const reader = new FileReader();
+	reader.onload = () => {
+		const mxl2irp_result = mxl2irp.getIRealProSong(new Uint8Array(reader.result), file.name);
+		if (mxl2irp_result.error_code != 0) {
+			console.error(mxl2irp.get_error_code_str(mxl2irp_result.error_code));
+			return;
+		}
+		if (App.MainElement.dataset.isEmpty === 'true') {
+			App.MainElement.dataset.isEmpty = 'false';
+		} else {
+			// App.FilesList.appendChild(Templates.Divider.content.cloneNode(true));
+		}
+		App.FilesList.appendChild(new Song(mxl2irp_result.item));
+	};
+    reader.readAsArrayBuffer(file);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -42,5 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 	window.App = App;
 	document.body.style.visibility = 'visible';
 	await mxl2irp.initWasm(wasmUrl);
-	App.InputFile.addEventListener('change', onInputFileChange);
+	document.body.ondrop = (e) => console.log(e);
+	App.InputFile.onchange = (e) => {
+		for (const file of e.target.files) appendSong(file);
+	};
 });
