@@ -29,23 +29,37 @@
 		</label>
 		<h6 class="hidden md:block is-filled:hidden mt-1 text-base-content/70">or drag and drop here</h6>
 		<div class="hidden is-filled:block mt-8 relative" >
-			<div class="list border-1 rounded-xl overflow-auto h-[40vh]" id="files-list"></div>
-			<div class="pointer-events-none absolute bottom-0 left-0 right-0 h-10
-				bg-gradient-to-t from-base-content/20 to-transparent rounded-xl"></div>
+			<div id="files-list"></div>
 		</div>
 	</main>
 
-	<template class="list-row" id="song-template">
-		<div class="list-col-grow mr-5">
-			<div class="text-lg font-bold" data-id="title">Title</div>
-			<div class="font-bold" data-id="composer">Composer</div>
-			<div data-id="style">Swing</div>
+	<div class="hidden">
+	<template class="flex gap-2 border-1 border-base-content/10 p-2" id="song-template">
+		<div class="flex flex-col rounded-md shadow-md p-2" >
+			<div class="w-[28ch] md:w-[45ch] m-0">
+				<div class="text-xl font-bold truncate leading-[1.1]" data-id="title">Title</div>
+				<div class="font-bold truncate" data-id="composer">Composer</div>
+			</div>
+			<div class="flex gap-2">
+				<div class="flex-grow" data-id="style">Swing</div>
+				<div data-id="tempo">Tempo</div>
+				<div data-id="key">Key</div>
+			</div>
 		</div>
-		<div class="grid content-end" data-id="tempo">Tempo</div>
-		<div class="grid content-end" data-id="key">Key</div>
-		<button class="btn btn-info" type="button" data-id="edit"></button>
-		<button class="btn btn-error" type="button" data-id="delete"></button>
+		<div class="flex flex-col gap-2">
+			<button class="btn btn-square p-2 bg-base-content/10" type="button" data-id="edit">
+			  <img src="/settings.svg" alt="Settings" class="w-11 h-11 object-contain">
+			</button>
+			<button class="btn btn-square p-2 bg-base-content/10" type="button" data-id="delete">
+			  <img src="/delete.svg" alt="Settings" class="w-11 h-11 object-contain">
+			</button>
+			<button class="hidden btn btn-info" ></button>
+		</div>
 	</template>
+	<template id="divider-template">
+		<div class="divider m-1 p-1"></div>
+	</template>
+	</div>
 	<script src="src/app.js" type="module"></script>
 </body>
 </html>

@@ -16,10 +16,12 @@ function onInputFileChange(event) {
 				console.error(mxl2irp.get_error_code_str(mxl2irp_result.error_code));
 				return;
 			}
-			App.FilesList.appendChild(new Song(mxl2irp_result.item));
-			if (App.FilesList.childNodes.length > 0
-				&& App.MainElement.dataset.isEmpty === 'true')
+			if (App.MainElement.dataset.isEmpty === 'true') {
 				App.MainElement.dataset.isEmpty = 'false';
+			} else {
+				// App.FilesList.appendChild(Templates.Divider.content.cloneNode(true));
+			}
+			App.FilesList.appendChild(new Song(mxl2irp_result.item));
 		};
     	reader.readAsArrayBuffer(file);
 	}
@@ -31,10 +33,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 		InputFile: document.getElementById('input-files'),
 		InputFileLabel: document.querySelector('label[for=input-files]'),
 		DropZone: document.getElementById('drop-zone'),
-		FilesList: document.getElementById('files-list')
+		FilesList: document.getElementById('files-list'),
 	};
 	Templates = {
-		Song: document.getElementById('song-template')
+		Song: document.getElementById('song-template'),
+		Divider: document.getElementById('divider-template'),
 	};
 	window.App = App;
 	document.body.style.visibility = 'visible';
