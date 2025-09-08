@@ -49,7 +49,7 @@ export class Song extends HTMLElement
 		this.el(PropEnum.Composer).textContent = (this.composer ? this.composer :'Unknown Composer');
 		this.el(PropEnum.Title).textContent = (this.title ? this.title : 'Song Title');
 		const style = mxl2irp.get_style_str(this.style);
-		this.el(PropEnum.Style).textContent = (style ? style : 'Style');
+		this.el(PropEnum.Style).textContent = (style ? style : 'Jazz-Even 8ths');
 		this.el(PropEnum.Tempo).textContent = (this.tempo ? this.tempo.toString() : '120') + ' bpm';
 		const key = mxl2irp.get_note_str(this.key);
 		this.el(PropEnum.Key).textContent = (key ? key : 'C');
