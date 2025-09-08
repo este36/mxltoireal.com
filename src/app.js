@@ -25,6 +25,31 @@ function appendSong(file) {
     reader.readAsArrayBuffer(file);
 }
 
+
+let dragCount = 0;
+function initDropZone() {
+	document.body.addEventListener('dragenter', (e) => {
+		e.preventDefault();
+		if (dragCount == 0)
+			App.DropZone.dataset.drag = 'on';
+		dragCount++;
+	});
+	document.body.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dragCount--;
+		if (dragCount == 0)
+			App.DropZone.dataset.drag = 'off';
+	});
+	document.body.addEventListener('dragover', (e) => e.preventDefault());
+	document.body.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dragCount = 0;
+		App.DropZone.dataset.drag = 'off';
+		for (const file of e.dataTransfer.files)
+			appendSong(file);
+	});
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
 	App = {
 		MainElement: document.querySelector('main'),
@@ -40,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	window.App = App;
 	document.body.style.visibility = 'visible';
 	await mxl2irp.initWasm(wasmUrl);
-	document.body.ondrop = (e) => console.log(e);
+	initDropZone();
 	App.InputFile.onchange = (e) => {
 		for (const file of e.target.files) appendSong(file);
 	};

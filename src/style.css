@@ -18,3 +18,11 @@
     @slot;
   }
 }
+
+#drop-zone[data-drag=off] {
+	display: none;
+}
+
+#drop-zone[data-drag=on] {
+	display: block;
+}
