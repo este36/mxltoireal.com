@@ -37,7 +37,7 @@
 	<div class="hidden">
 	<template class="flex gap-2 border-1 border-base-content/10 p-2" id="song-template">
 		<div class="flex flex-col rounded-md shadow-md p-2" >
-			<div class="w-[28ch] md:w-[45ch] m-0">
+			<div class="w-[28ch] md:w-[48ch] m-0">
 				<div class="text-xl font-bold truncate leading-[1.1]" data-id="title">Title</div>
 				<div class="font-bold truncate" data-id="composer">Composer</div>
 			</div>
@@ -48,17 +48,14 @@
 			</div>
 		</div>
 		<div class="flex flex-col gap-2">
-			<button class="btn btn-square p-2 bg-base-content/10" type="button" data-id="edit">
-				<svg class="w-11 h-11" fill="currentColor">
-				  <use href="#icon-settings" ></use>
-				</svg>
-			</button>
-			<button class="btn btn-square p-2 bg-base-content/10" type="button" data-id="delete">
-				<svg class="w-11 h-11">
-				  <use href="#icon-delete"></use>
-				</svg>
-			</button>
+			<btn-square-template use="#icon-settings" fill="currentColor" data-id="edit"></btn-square-template>
+			<btn-square-template use="#icon-delete" data-id="delete"></btn-square-template>
 		</div>
+	</template>
+	<template class="btn btn-square p-2 bg-base-content/10" id="btn-square-template">
+		<svg class="w-11 h-11">
+		  <use href=""></use>
+		</svg>
 	</template>
 	</div>
 	<svg class="hidden">

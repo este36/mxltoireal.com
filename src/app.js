@@ -2,6 +2,7 @@ import './style.css'
 
 import wasmUrl from 'musicxml-irealpro/wasm-module?url'
 import {Song} from './components/Song.js'
+import './components/BtnSquare.js';
 import * as mxl2irp from 'musicxml-irealpro';
 
 export let App;
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	};
 	Templates = {
 		Song: document.getElementById('song-template'),
+		BtnSquare: document.getElementById('btn-square-template'),
 		Divider: document.getElementById('divider-template'),
 	};
 	window.App = App;
