@@ -1,28 +1,28 @@
 @import "tailwindcss";
 @plugin "daisyui"{
-	themes: business --default;
+    themes: business --default;
 }
 
 @theme {
-	--font-sans: 'QuickSand', Inter, sans-serif
+    --font-sans: 'QuickSand', Inter, sans-serif
 }
 
 @custom-variant is-empty {
-  &:where([data-is-empty=true] *) {
-    @slot;
-  }
+    &:where([data-is-empty=true] *, [data-is-empty=true]) {
+        @slot;
+    }
 }
 
 @custom-variant is-filled {
-  &:where([data-is-empty=false] *) {
-    @slot;
-  }
+    &:where([data-is-empty=false] *, [data-is-empty=false]) {
+        @slot;
+    }
 }
 
 #drop-zone[data-drag=off] {
-	display: none;
+    display: none;
 }
 
 #drop-zone[data-drag=on] {
-	display: block;
+    display: block;
 }

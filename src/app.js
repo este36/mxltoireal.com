@@ -16,8 +16,8 @@ function appendSong(file) {
 			console.error(mxl2irp.get_error_code_str(mxl2irp_result.error_code));
 			return;
 		}
-		if (App.MainElement.dataset.isEmpty === 'true') {
-			App.MainElement.dataset.isEmpty = 'false';
+		if (document.body.dataset.isEmpty === 'true') {
+			document.body.dataset.isEmpty = 'false';
 		} else {
 			// App.FilesList.appendChild(Templates.Divider.content.cloneNode(true));
 		}

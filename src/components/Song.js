@@ -29,8 +29,8 @@ export class Song extends HTMLElement
 		this.render();
 		this.el(PropEnum.Delete).addEventListener('click', () => {
 			this.remove();
-			if (App.FilesList.childNodes.length === 0)
-				App.MainElement.dataset.isEmpty = 'true';
+			if (App.FilesList.childElementCount === 0)
+				document.body.dataset.isEmpty = 'true';
 		});
 		this.el(PropEnum.Edit).addEventListener('click', (event) => {
 			console.log("TODO: open file-item options.");
