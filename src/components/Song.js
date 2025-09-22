@@ -1,4 +1,4 @@
-import {App, Templates} from '../app.js'
+import {App, Templates, updateFilesCount} from '../app.js'
 import * as mxl2irp from 'musicxml-irealpro'
 
 const PropEnum = {
@@ -31,6 +31,7 @@ export class Song extends HTMLElement
 			this.remove();
 			if (App.FilesList.childElementCount === 0)
 				document.body.dataset.isEmpty = 'true';
+            updateFilesCount();
 		});
 		this.el(PropEnum.Edit).addEventListener('click', (event) => {
 			console.log("TODO: open file-item options.");

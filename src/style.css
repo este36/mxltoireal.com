@@ -4,13 +4,8 @@
 }
 
 @theme {
-    --font-sans: 'QuickSand', Inter, sans-serif
-}
-
-@custom-variant is-empty {
-    &:where([data-is-empty=true] *, [data-is-empty=true]) {
-        @slot;
-    }
+    --font-sans: 'QuickSand', Inter, sans-serif;
+    --files-width-md: 48ch;
 }
 
 @custom-variant is-filled {
@@ -25,4 +20,12 @@
 
 #drop-zone[data-drag=on] {
     display: block;
+}
+
+.anchor {
+    anchor-name: --a;
+}
+
+.anchored {
+    position: position;
 }

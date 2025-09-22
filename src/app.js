@@ -8,6 +8,21 @@ import * as mxl2irp from 'musicxml-irealpro';
 export let App;
 export let Templates;
 
+export function updateFilesCount() {
+    App.FilesCount.textContent = `${App.FilesList.childElementCount.toString()} file(s) selected`
+}
+
+export function updateDownloadFooter(fileListRect) {
+    if (App.FilesList.childElementCount != 0) {
+        if (!fileListRect) fileListRect = App.FilesList.getBoundingClientRect();
+        const firstChildHeight = App.FilesList.firstElementChild.getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--song-card-height', firstChildHeight + 'px');
+        App.DownloadFooter.style.width = fileListRect.width + 'px';
+        // console.log(App.DownloadFooter.style.width);
+        // console.log(fileListRect.width);
+    }
+}
+
 function appendSong(file) {
 	const reader = new FileReader();
 	reader.onload = () => {
@@ -22,10 +37,11 @@ function appendSong(file) {
 			// App.FilesList.appendChild(Templates.Divider.content.cloneNode(true));
 		}
 		App.FilesList.appendChild(new Song(mxl2irp_result.item));
+        updateFilesCount();
+        updateDownloadFooter();
 	};
     reader.readAsArrayBuffer(file);
 }
-
 
 let dragCount = 0;
 function initDropZone() {
@@ -54,21 +70,30 @@ function initDropZone() {
 document.addEventListener('DOMContentLoaded', async () => {
 	App = {
 		MainElement: document.querySelector('main'),
-		InputFile: document.getElementById('input-files'),
-		InputFileLabel: document.querySelector('label[for=input-files]'),
 		DropZone: document.getElementById('drop-zone'),
 		FilesList: document.getElementById('files-list'),
+		FilesCount: document.getElementById('files-count'),
+        DownloadFooter: document.getElementById('download-footer'),
 	};
 	Templates = {
 		Song: document.getElementById('song-template'),
 		BtnSquare: document.getElementById('btn-square-template'),
-		Divider: document.getElementById('divider-template'),
 	};
 	window.App = App;
-	document.body.style.visibility = 'visible';
 	await mxl2irp.initWasm(wasmUrl);
 	initDropZone();
-	App.InputFile.onchange = (e) => {
-		for (const file of e.target.files) appendSong(file);
-	};
+    let inputFiles = document.querySelectorAll('.input-files');
+    for (const inputFile of inputFiles) {
+        inputFile.addEventListener('change', (e) => {
+            for (const file of e.target.files) {
+                appendSong(file);
+            }
+        });
+    }
+    const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+            updateDownloadFooter(entry.contentRect);
+        }
+    });
+    resizeObserver.observe(App.FilesList);
 });
