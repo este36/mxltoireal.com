@@ -16,7 +16,7 @@ export class Song extends HTMLElement
 	constructor(irpSongPtr)
 	{
 		super();
-		this.irp_song = irpSongPtr;
+		this.ptr = irpSongPtr;
 	}
 
 	el(dataId) {
@@ -39,9 +39,9 @@ export class Song extends HTMLElement
 	}
 
 	disconnectedCallback() {
-		if (this.irp_song) {
-			mxl2irp.free(this.irp_song);
-			this.irp_song = 0;
+		if (this.ptr) {
+			mxl2irp.free(this.ptr);
+			this.ptr = 0;
 		}
   	}
 
@@ -56,31 +56,31 @@ export class Song extends HTMLElement
 	}
 
 	get composer() {
-		return mxl2irp.irp_song_get_composer(this.irp_song);
+		return mxl2irp.irp_song_get_composer(this.ptr);
 	}
 	get title() {
-		return mxl2irp.irp_song_get_title(this.irp_song);
+		return mxl2irp.irp_song_get_title(this.ptr);
 	}
 	get style() {
-		return mxl2irp.irp_song_get_style(this.irp_song);
+		return mxl2irp.irp_song_get_style(this.ptr);
 	}
 	get tempo() {
-		return mxl2irp.irp_song_get_tempo(this.irp_song);
+		return mxl2irp.irp_song_get_tempo(this.ptr);
 	}
 	get key() {
-		return mxl2irp.irp_song_get_key(this.irp_song);
+		return mxl2irp.irp_song_get_key(this.ptr);
 	}
 	set composer(value) {
-		mxl2irp.irp_song_set_composer(this.irp_song, value);
+		mxl2irp.irp_song_set_composer(this.ptr, value);
 	}
 	set title(value) {
-		mxl2irp.irp_song_set_title(this.irp_song, value);
+		mxl2irp.irp_song_set_title(this.ptr, value);
 	}
 	set style(value) {
-		mxl2irp.irp_song_set_style(this.irp_song, value);
+		mxl2irp.irp_song_set_style(this.ptr, value);
 	}
 	set tempo(value) {
-		mxl2irp.irp_song_set_tempo(this.irp_song, value);
+		mxl2irp.irp_song_set_tempo(this.ptr, value);
 	}
 }
 
