@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <title>Convert musicxml to iReal Pro</title>
 </head>
-<body class="relative"
+<body class="relative md:min-h-[100vh]"
     data-is-empty="true">
     <noscript>
         <div class="p-1 text-md text-center">
@@ -19,8 +19,8 @@
     <div class="z-100 top-[4rem] absolute bg-[#0a0f] h-full w-full" id="drop-zone" data-drag="off"></div>
 
     <header class="text-center ">
-        <h2 class="text-2xl py-4 shadow-lg/20">mxltoireal.com</h2>
-        <h1 class="text-3xl py-6">Convert Musicxml files to iReal Pro</h1>
+        <h2 class="text-2xl py-2 md:py-4 shadow-lg/20">mxltoireal.com</h2>
+        <h1 class="text-3xl py-4 md:py-6">Convert Musicxml files to iReal Pro</h1>
     </header>
 
     <main class="relative flex flex-col items-center justify-center h-[18rem] md:h-[20rem] is-filled:h-auto"
@@ -32,8 +32,9 @@
             <input class="sr-only" id="input-files" type="file" multiple/>
         </label>
         <h6 class="hidden md:block is-filled:hidden mt-1 text-base-content/70">or drag and drop here</h6>
-        <div class="hidden is-filled:block border-base-content/10 border-1 mt-8 
-            is-filled:mt-0 relative min-h-[calc(3_*_var(--song-card-height))] md:min-h-[calc(4_*_var(--song-card-height))]"
+        <div class="[--min-fileslist:3] md:[--min-fileslist:4]
+            hidden is-filled:block border-base-content/10 border-2 mt-8 is-filled:mt-0 relative
+            min-h-[calc(var(--min-fileslist)_*_var(--song-card-height))]"
             id="files-list">
         </div>
     </main>
@@ -48,14 +49,14 @@
                 </label>
             </div>
             <div class="flex flex-col flex-grow gap-2">
-                <button class="btn btn-primary">Download</button>
-                <button class="btn btn-secondary">Open in iReal Pro</button>
+                <button class="btn btn-primary" id="download-btn">Download</button>
+                <button class="btn btn-secondary" id="open-in-irealpro-btn">Open in iReal Pro</button>
             </div>
         </div>
     </div>
 
     <div class="hidden">
-    <template class="flex gap-2 border-1 border-base-content/10 p-2" id="song-template">
+    <template class="flex gap-2 border-base-content/10 p-2" id="song-template">
         <div class="flex flex-col rounded-md shadow-md p-2" >
             <div class="w-[30ch] md:w-[48ch] m-0">
                 <div class="text-xl font-bold truncate leading-[1.1]" data-id="title">Title</div>

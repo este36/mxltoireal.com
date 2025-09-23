@@ -29,3 +29,12 @@
 .anchored {
     position: position;
 }
+
+song-template {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+.no-last-border-b :last-child {
+    border-bottom-width: 0px;
+}

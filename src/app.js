@@ -8,20 +8,25 @@ import * as mxl2irp from 'musicxml-irealpro';
 export let App;
 export let Templates;
 
-export function updateFilesCount() {
-    const n = App.FilesList.childElementCount;
-    App.FilesCount.textContent = (n == 1 ? '1 file selected' : `${n.toString()} files selected`);
-}
-
 export function updateDownloadFooter(fileListRect) {
     if (App.FilesList.childElementCount != 0) {
         if (!fileListRect) fileListRect = App.FilesList.getBoundingClientRect();
         const firstChildHeight = App.FilesList.firstElementChild.getBoundingClientRect().height;
         document.documentElement.style.setProperty('--song-card-height', firstChildHeight + 'px');
-        App.DownloadFooter.style.width = (fileListRect.width + 2).toString() + 'px';
-        // console.log(App.DownloadFooter.style.width);
-        // console.log(fileListRect.width);
+        App.DownloadFooter.style.width = (fileListRect.width + 4).toString() + 'px';
     }
+}
+
+let downloadFooterIsInit = false;
+export function updateFilesList() {
+    const n = App.FilesList.childElementCount;
+    App.FilesCount.textContent = (n == 1 ? '1 file selected' : `${n.toString()} files selected`);
+    if (!downloadFooterIsInit) {
+        updateDownloadFooter();
+        downloadFooterIsInit = true;
+    }
+    const minFilesList = parseInt(getComputedStyle(App.FilesList).getPropertyValue('--min-fileslist'));
+    App.FilesList.classList.toggle('no-last-border-b', App.FilesList.childElementCount > minFilesList);
 }
 
 function appendSong(file) {
@@ -38,8 +43,7 @@ function appendSong(file) {
 			// App.FilesList.appendChild(Templates.Divider.content.cloneNode(true));
 		}
 		App.FilesList.appendChild(new Song(mxl2irp_result.item));
-        updateFilesCount();
-        updateDownloadFooter();
+        updateFilesList();
 	};
     reader.readAsArrayBuffer(file);
 }
@@ -68,6 +72,48 @@ function initDropZone() {
 	});
 }
 
+function getPlaylistName() {
+    return 'mxltoireal.com';
+}
+
+function getIrealProUrl(playlistName, songs) {
+    const irp_playlist = mxl2irp.irp_playlist_create(playlistName);
+    for (const song of songs) {
+        mxl2irp.irp_playlist_append(irp_playlist, song.ptr);
+    }
+    const url_ptr = mxl2irp.irp_playlist_get_html(irp_playlist);
+    if (!url_ptr) throw new Error('irp_playlist_get_html FAIL');
+    const tmp = document.createElement('div');
+    tmp.innerHTML = mxl2irp.Wasm.UTF8ToString(url_ptr);
+    mxl2irp.free(url_ptr);
+    return tmp.firstElementChild;
+}
+
+function DownloadBtn_onClick() {
+    const playlist_name = getPlaylistName()
+    const url = getIrealProUrl(playlist_name, App.FilesList.children);
+    const textContent = `<!DOCTYPE html>
+<head>
+    <title>${playlist_name}</title>
+</head>
+<body>
+    <h1>${url.outerHTML}</h1>
+</body>`;
+    const blob = new Blob([textContent], {type: 'text/html'});
+    const a = document.createElement('a');
+    const a_url = URL.createObjectURL(blob);
+    a.href = a_url;
+    a.target = '_blank';
+    a.download = playlist_name.replace(/ /g, '_') + '.html';
+    a.click();
+    URL.revokeObjectURL(a_url);
+}
+
+function OpenInIrealproBtn_onClick() {
+    const a = getIrealProUrl(getPlaylistName(), App.FilesList.children);
+    window.location = a.href;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
 	App = {
 		MainElement: document.querySelector('main'),
@@ -75,6 +121,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 		FilesList: document.getElementById('files-list'),
 		FilesCount: document.getElementById('files-count'),
         DownloadFooter: document.getElementById('download-footer'),
+        DownloadBtn: document.getElementById('download-btn'),
+        OpenInIrealproBtn: document.getElementById('open-in-irealpro-btn'),
 	};
 	Templates = {
 		Song: document.getElementById('song-template'),
@@ -97,4 +145,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
     resizeObserver.observe(App.FilesList);
+    App.DownloadBtn.addEventListener('click', DownloadBtn_onClick);
+    App.OpenInIrealproBtn.addEventListener('click', OpenInIrealproBtn_onClick);
 });
