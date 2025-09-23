@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui"{
+    /*themes: corporate --default, business --prefersdark;*/
     themes: corporate --default;
 }
 
@@ -9,7 +10,7 @@
 }
 
 @custom-variant is-filled {
-    &:where([data-is-empty=false] *, [data-is-empty=false]) {
+    &:where(body[data-is-empty=false] *, body[data-is-empty=false]) {
         @slot;
     }
 }

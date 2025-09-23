@@ -115,6 +115,17 @@ function OpenInIrealproBtn_onClick() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+	Templates = {
+		Song: document.getElementById('song-template'),
+		BtnSquare: document.getElementById('btn-square-template'),
+		DownloadFooter: document.getElementById('download-footer-template'),
+	};
+
+    const downloadFooter = document.createElement('div');
+    downloadFooter.appendChild(Templates.DownloadFooter.content.cloneNode(true));
+	downloadFooter.classList.add(...Templates.DownloadFooter.classList);
+    document.body.appendChild(downloadFooter);
+
 	App = {
 		MainElement: document.querySelector('main'),
 		DropZone: document.getElementById('drop-zone'),
@@ -124,13 +135,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         DownloadBtn: document.getElementById('download-btn'),
         OpenInIrealproBtn: document.getElementById('open-in-irealpro-btn'),
 	};
-	Templates = {
-		Song: document.getElementById('song-template'),
-		BtnSquare: document.getElementById('btn-square-template'),
-	};
+
 	window.App = App;
 	await mxl2irp.initWasm(wasmUrl);
 	initDropZone();
+
     let inputFiles = document.querySelectorAll('.input-files');
     for (const inputFile of inputFiles) {
         inputFile.addEventListener('change', (e) => {
@@ -139,12 +148,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
     const resizeObserver = new ResizeObserver((entries) => {
         for (let entry of entries) {
             updateDownloadFooter(entry.contentRect);
         }
     });
     resizeObserver.observe(App.FilesList);
+
     App.DownloadBtn.addEventListener('click', DownloadBtn_onClick);
     App.OpenInIrealproBtn.addEventListener('click', OpenInIrealproBtn_onClick);
 });
