@@ -9,7 +9,8 @@ export let App;
 export let Templates;
 
 export function updateFilesCount() {
-    App.FilesCount.textContent = `${App.FilesList.childElementCount.toString()} file(s) selected`
+    const n = App.FilesList.childElementCount;
+    App.FilesCount.textContent = (n == 1 ? '1 file selected' : `${n.toString()} files selected`);
 }
 
 export function updateDownloadFooter(fileListRect) {
@@ -17,7 +18,7 @@ export function updateDownloadFooter(fileListRect) {
         if (!fileListRect) fileListRect = App.FilesList.getBoundingClientRect();
         const firstChildHeight = App.FilesList.firstElementChild.getBoundingClientRect().height;
         document.documentElement.style.setProperty('--song-card-height', firstChildHeight + 'px');
-        App.DownloadFooter.style.width = fileListRect.width + 'px';
+        App.DownloadFooter.style.width = (fileListRect.width + 2).toString() + 'px';
         // console.log(App.DownloadFooter.style.width);
         // console.log(fileListRect.width);
     }
