@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui"{
-    themes: business --default;
+    themes: corporate --default;
 }
 
 @theme {
