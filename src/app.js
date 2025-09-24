@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         DownloadFooter: document.getElementById('download-footer'),
         DownloadBtn: document.getElementById('download-btn'),
         OpenInIrealproBtn: document.getElementById('open-in-irealpro-btn'),
+        SongEditModal: document.getElementById('song-edit-modal'),
 	};
 
 	window.App = App;

@@ -33,9 +33,7 @@ export class Song extends HTMLElement
 				document.body.dataset.isEmpty = 'true';
             updateFilesList();
 		});
-		this.el(PropEnum.Edit).addEventListener('click', (event) => {
-			console.log("TODO: open file-item options.");
-		});
+		this.el(PropEnum.Edit).addEventListener('click', () => this.openEditModal());
 	}
 
 	disconnectedCallback() {
@@ -54,6 +52,10 @@ export class Song extends HTMLElement
 		const key = mxl2irp.get_note_str(this.key);
 		this.el(PropEnum.Key).textContent = (key ? key : 'C');
 	}
+
+    openEditModal() {
+        App.SongEditModal.showModal()
+    }
 
 	get composer() {
 		return mxl2irp.irp_song_get_composer(this.ptr);
