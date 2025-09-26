@@ -75,7 +75,9 @@ function initDropZone() {
 }
 
 function getPlaylistName() {
-    return 'mxltoireal.com';
+    let name = (document.getElementById('input-playlist-name').value).toString().trim();
+    if (name.lenght == 0) name = 'mxltoireal.com';
+    return name;
 }
 
 function getIrealProUrl(playlistName, songs) {
@@ -93,7 +95,7 @@ function getIrealProUrl(playlistName, songs) {
 
 function DownloadBtn_onClick() {
     const playlist_name = getPlaylistName()
-    const url = getIrealProUrl(playlist_name, App.FilesList.children);
+    const url = getIrealProUrl(playlist_name, App.FilesList.querySelectorAll('song-template'));
     const textContent = `<!DOCTYPE html>
 <head>
     <title>${playlist_name}</title>
@@ -112,7 +114,7 @@ function DownloadBtn_onClick() {
 }
 
 function OpenInIrealproBtn_onClick() {
-    const a = getIrealProUrl(getPlaylistName(), App.FilesList.children);
+    const a = getIrealProUrl(getPlaylistName(), App.FilesList.querySelectorAll('song-template'));
     window.location = a.href;
 }
 
