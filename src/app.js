@@ -94,7 +94,7 @@ function getIrealProUrl(playlistName, songs) {
 }
 
 function DownloadBtn_onClick() {
-    const playlist_name = getPlaylistName()
+    const playlist_name = getPlaylistName();
     const url = getIrealProUrl(playlist_name, App.FilesList.querySelectorAll('song-template'));
     const textContent = `<!DOCTYPE html>
 <head>
@@ -113,7 +113,8 @@ function DownloadBtn_onClick() {
     URL.revokeObjectURL(a_url);
 }
 
-function OpenInIrealproBtn_onClick() {
+function OpenInIrealproBtn_onClick(event) {
+    event.preventDefault();
     const a = getIrealProUrl(getPlaylistName(), App.FilesList.querySelectorAll('song-template'));
     window.location = a.href;
 }
@@ -128,7 +129,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const downloadFooter = document.createElement('div');
     downloadFooter.appendChild(Templates.DownloadFooter.content.cloneNode(true));
 	downloadFooter.classList.add(...Templates.DownloadFooter.classList);
-    document.body.appendChild(downloadFooter);
+    document.querySelector('main').insertAdjacentElement('afterend', downloadFooter);
 
 	App = {
 		MainElement: document.querySelector('main'),
@@ -163,6 +164,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     App.DownloadBtn.addEventListener('click', DownloadBtn_onClick);
     App.OpenInIrealproBtn.addEventListener('click', OpenInIrealproBtn_onClick);
+
     const falseSubmitBtns = document.body.querySelectorAll('.false-submit-btn');
     for (const btn of falseSubmitBtns) {
         btn.addEventListener('click', (event) => {
