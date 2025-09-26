@@ -9,10 +9,12 @@ export let App;
 export let Templates;
 
 export function updateDownloadFooter(fileListRect) {
-    if (App.FilesList.childElementCount != 0) {
+    if (App.FilesList.childElementCount > 1) {
+        const playlistNameHeight = App.FilesList.firstElementChild.getBoundingClientRect().height;
+        const songCardHeight = App.FilesList.children[1].getBoundingClientRect().height;
+        document.documentElement.style.setProperty('--song-card-height', songCardHeight + 'px');
+        document.documentElement.style.setProperty('--playlistname-height', playlistNameHeight + 2 + 'px');
         if (!fileListRect) fileListRect = App.FilesList.getBoundingClientRect();
-        const firstChildHeight = App.FilesList.firstElementChild.getBoundingClientRect().height;
-        document.documentElement.style.setProperty('--song-card-height', firstChildHeight + 'px');
         App.DownloadFooter.style.width = (fileListRect.width + 4).toString() + 'px';
     }
 }
@@ -20,7 +22,7 @@ export function updateDownloadFooter(fileListRect) {
 let downloadFooterIsInit = false;
 export function updateFilesList() {
     const n = App.FilesList.childElementCount;
-    App.FilesCount.textContent = (n == 1 ? '1 file selected' : `${n.toString()} files selected`);
+    App.FilesCount.textContent = (n == 2 ? '1 file selected' : `${(n - 1).toString()} files selected`);
     if (!downloadFooterIsInit) {
         updateDownloadFooter();
         downloadFooterIsInit = true;
@@ -159,4 +161,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     App.DownloadBtn.addEventListener('click', DownloadBtn_onClick);
     App.OpenInIrealproBtn.addEventListener('click', OpenInIrealproBtn_onClick);
+    const falseSubmitBtns = document.body.querySelectorAll('.false-submit-btn');
+    for (const btn of falseSubmitBtns) {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const inputs = document.querySelectorAll(event.target.getAttribute('inputs'));
+            for (const input of inputs) {
+                if (document.activeElement === input) {
+                    input.blur();
+                    return;
+                }
+            }
+        });
+    }
 });

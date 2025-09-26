@@ -29,7 +29,7 @@ export class Song extends HTMLElement
 		this.render();
 		this.el(PropEnum.Delete).addEventListener('click', () => {
 			this.remove();
-			if (App.FilesList.childElementCount === 0)
+			if (App.FilesList.childElementCount === 1)
 				document.body.dataset.isEmpty = 'true';
             updateFilesList();
 		});

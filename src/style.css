@@ -16,6 +16,10 @@
     }
 }
 
+.border-bg-secondary {
+    @apply border-base-content/10;
+}
+
 #drop-zone[data-drag=off] {
     display: none;
 }
@@ -37,6 +41,6 @@ song-template {
     border-bottom-width: 2px;
 }
 
-.no-last-border-b :last-child {
+.no-last-border-b>:last-child {
     border-bottom-width: 0px;
 }
