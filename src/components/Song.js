@@ -1,5 +1,6 @@
 import {App, Templates, updateFilesList, setupFalseSubmitBtns} from '../app.js'
 import * as mxl2irp from 'musicxml-irealpro'
+import { SongEditorModal } from './SongEditorModal.js';
 
 const PropEnum = {
 	Composer: "composer",
@@ -33,7 +34,9 @@ export class Song extends HTMLElement
 				document.body.dataset.isEmpty = 'true';
             updateFilesList();
 		});
-		this.el(PropEnum.Edit).addEventListener('click', () => this.openEditModal());
+		this.el(PropEnum.Edit).addEventListener('click', () => {
+            document.body.append(new SongEditorModal(this));
+        });
 	}
 
 	disconnectedCallback() {
@@ -56,46 +59,6 @@ export class Song extends HTMLElement
 		this.el(PropEnum.Key).textContent = (key ? key : 'C');
 	}
 
-    openEditModal() {
-        const modal = document.createElement('dialog');
-        modal.appendChild(Templates.SongEditModal.content.cloneNode(true));
-        modal.classList.add(...Templates.SongEditModal.classList);
-        document.body.appendChild(modal);
-        modal.inputs = {
-            title: document.getElementById('modal-song-title'),
-            composer: document.getElementById('modal-song-composer'),
-            style: document.getElementById('modal-song-style'),
-            tempo: document.getElementById('modal-song-tempo'),
-        };
-        for (const key in modal.inputs) {
-            modal.inputs[key].addEventListener('change', () => {
-            });
-        }
-        modal.addEventListener('close', () => modal.remove());
-        document.getElementById('modal-song-ok').addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.updateSong();
-            modal.close();
-            modal.song.render();
-        });
-        document.getElementById('modal-song-cancel').addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.close();
-        });
-        setupFalseSubmitBtns(modal);
-        modal.song = this;
-        modal.inputs.title.value = this.title;
-        modal.inputs.composer.value = this.composer;
-        modal.inputs.style.value = this.style;
-        modal.inputs.tempo.value = this.tempo;
-        modal.updateSong = () => {
-            this.title = modal.inputs.title.value;
-            this.composer = modal.inputs.composer.value;
-            this.style = modal.inputs.style.value;
-            this.tempo = modal.inputs.tempo.value;
-        };
-        modal.showModal();
-    }
 
 	get composer() {
 		return mxl2irp.irp_song_get_composer(this.ptr);

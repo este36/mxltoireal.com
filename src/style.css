@@ -19,6 +19,11 @@
 .empty-song-field {
     @apply text-warning font-normal;
 }
+
+song-editor-modal {
+    @apply absolute w-full h-full;
+}
+
 .border-bg-secondary {
     @apply border-base-content/10;
 }

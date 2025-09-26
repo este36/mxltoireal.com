@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		Song: document.getElementById('song-template'),
 		BtnSquare: document.getElementById('btn-square-template'),
 		DownloadFooter: document.getElementById('download-footer-template'),
-        SongEditModal: document.getElementById('song-edit-modal-template'),
+        SongEditorModal: document.getElementById('song-editor-modal-template'),
 	};
 
     const downloadFooter = document.createElement('div');
