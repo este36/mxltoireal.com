@@ -1,4 +1,4 @@
-import {App, Templates, updateFilesList} from '../app.js'
+import {App, Templates, updateFilesList, setupFalseSubmitBtns} from '../app.js'
 import * as mxl2irp from 'musicxml-irealpro'
 
 const PropEnum = {
@@ -44,17 +44,57 @@ export class Song extends HTMLElement
   	}
 
 	render() {
-		this.el(PropEnum.Composer).textContent = (this.composer ? this.composer :'Unknown Composer');
-		this.el(PropEnum.Title).textContent = (this.title ? this.title : 'Song Title');
+		this.el(PropEnum.Composer).textContent = (this.composer ? this.composer :'- Unknown Composer -');
+        this.el(PropEnum.Composer).classList.toggle('empty-song-field', !this.composer);
+		this.el(PropEnum.Title).textContent = (this.title ? this.title : '- Song title -');
+        this.el(PropEnum.Title).classList.toggle('empty-song-field', !this.title);
 		const style = mxl2irp.get_style_str(this.style);
 		this.el(PropEnum.Style).textContent = (style ? style : 'Jazz-Even 8ths');
-		this.el(PropEnum.Tempo).textContent = (this.tempo ? this.tempo.toString() : '120') + ' bpm';
+        if (this.tempo == 0) this.tempo = 120;
+		this.el(PropEnum.Tempo).textContent = this.tempo.toString() + ' bpm';
 		const key = mxl2irp.get_note_str(this.key);
 		this.el(PropEnum.Key).textContent = (key ? key : 'C');
 	}
 
     openEditModal() {
-        App.SongEditModal.showModal()
+        const modal = document.createElement('dialog');
+        modal.appendChild(Templates.SongEditModal.content.cloneNode(true));
+        modal.classList.add(...Templates.SongEditModal.classList);
+        document.body.appendChild(modal);
+        modal.inputs = {
+            title: document.getElementById('modal-song-title'),
+            composer: document.getElementById('modal-song-composer'),
+            style: document.getElementById('modal-song-style'),
+            tempo: document.getElementById('modal-song-tempo'),
+        };
+        for (const key in modal.inputs) {
+            modal.inputs[key].addEventListener('change', () => {
+            });
+        }
+        modal.addEventListener('close', () => modal.remove());
+        document.getElementById('modal-song-ok').addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.updateSong();
+            modal.close();
+            modal.song.render();
+        });
+        document.getElementById('modal-song-cancel').addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.close();
+        });
+        setupFalseSubmitBtns(modal);
+        modal.song = this;
+        modal.inputs.title.value = this.title;
+        modal.inputs.composer.value = this.composer;
+        modal.inputs.style.value = this.style;
+        modal.inputs.tempo.value = this.tempo;
+        modal.updateSong = () => {
+            this.title = modal.inputs.title.value;
+            this.composer = modal.inputs.composer.value;
+            this.style = modal.inputs.style.value;
+            this.tempo = modal.inputs.tempo.value;
+        };
+        modal.showModal();
     }
 
 	get composer() {

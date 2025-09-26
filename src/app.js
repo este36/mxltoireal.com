@@ -41,9 +41,7 @@ function appendSong(file) {
 		}
 		if (document.body.dataset.isEmpty === 'true') {
 			document.body.dataset.isEmpty = 'false';
-		} else {
-			// App.FilesList.appendChild(Templates.Divider.content.cloneNode(true));
-		}
+		} 
 		App.FilesList.appendChild(new Song(mxl2irp_result.item));
         updateFilesList();
 	};
@@ -75,8 +73,8 @@ function initDropZone() {
 }
 
 function getPlaylistName() {
-    let name = (document.getElementById('input-playlist-name').value).toString().trim();
-    if (name.lenght == 0) name = 'mxltoireal.com';
+    let name = document.getElementById('input-playlist-name').value.trim();
+    if (name.length == 0) name = 'mxltoireal.com';
     return name;
 }
 
@@ -119,11 +117,28 @@ function OpenInIrealproBtn_onClick(event) {
     window.location = a.href;
 }
 
+export function setupFalseSubmitBtns(scope) {
+    const falseSubmitBtns = scope.querySelectorAll('.false-submit-btn');
+    for (const btn of falseSubmitBtns) {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const inputs = document.querySelectorAll(event.target.getAttribute('inputs'));
+            for (const input of inputs) {
+                if (document.activeElement === input) {
+                    input.blur();
+                    return;
+                }
+            }
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
 	Templates = {
 		Song: document.getElementById('song-template'),
 		BtnSquare: document.getElementById('btn-square-template'),
 		DownloadFooter: document.getElementById('download-footer-template'),
+        SongEditModal: document.getElementById('song-edit-modal-template'),
 	};
 
     const downloadFooter = document.createElement('div');
@@ -139,7 +154,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         DownloadFooter: document.getElementById('download-footer'),
         DownloadBtn: document.getElementById('download-btn'),
         OpenInIrealproBtn: document.getElementById('open-in-irealpro-btn'),
-        SongEditModal: document.getElementById('song-edit-modal'),
 	};
 
 	window.App = App;
@@ -164,18 +178,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     App.DownloadBtn.addEventListener('click', DownloadBtn_onClick);
     App.OpenInIrealproBtn.addEventListener('click', OpenInIrealproBtn_onClick);
-
-    const falseSubmitBtns = document.body.querySelectorAll('.false-submit-btn');
-    for (const btn of falseSubmitBtns) {
-        btn.addEventListener('click', (event) => {
-            event.preventDefault();
-            const inputs = document.querySelectorAll(event.target.getAttribute('inputs'));
-            for (const input of inputs) {
-                if (document.activeElement === input) {
-                    input.blur();
-                    return;
-                }
-            }
-        });
-    }
+    setupFalseSubmitBtns(document.body);
 });

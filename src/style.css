@@ -16,6 +16,9 @@
     }
 }
 
+.empty-song-field {
+    @apply text-warning font-normal;
+}
 .border-bg-secondary {
     @apply border-base-content/10;
 }

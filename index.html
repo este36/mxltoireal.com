@@ -53,6 +53,42 @@
           <use href=""></use>
         </svg>
     </template>
+    <template id="song-edit-modal-template" class="modal">
+        <div class="modal-box p-3 md:p-6 font-bold flex flex-col gap-3 md:gap-6 ">
+            <h2>Edit song informations :</h2>
+            <form>
+                <div class="flex flex-col gap-3 md:gap-5">
+                    <label for="modal-song-title" class="input input-secondary w-full">
+                        <span class="label">Title</span>
+                        <input id="modal-song-title" type="text" />
+                    </label>
+                    <label for="modal-song-composer" class="input input-secondary w-full">
+                        <span class="label">Composer</span>
+                        <input id="modal-song-composer" type="text" />
+                    </label>
+                    <label for="modal-song-style" class="input input-secondary w-full">
+                        <span class="label">Style</span>
+                        <input id="modal-song-style" type="text" />
+                    </label>
+                    <div>
+                        <label for="modal-song-tempo" class="input input-secondary validator w-full">
+                            <span class="label">Tempo</span>
+                            <input id="modal-song-tempo" type="number" required
+                               min="40" max="360" title="Must be between 40 to 360 bpm."/>
+                        </label>
+                        <p class="validator-hint mb-2">Must be between be 40 to 360 bpm.</p>
+                    </div>
+                    <button class="sr-only false-submit-btn"
+                        inputs="#modal-song-title, #modal-song-composer, #modal-song-style, #modal-song-tempo">
+                    </button>
+                </div>
+                <div class="w-full flex gap-3 md:gap-5">
+                    <button id="modal-song-ok" class="btn btn-primary flex-1">OK</button>
+                    <button id="modal-song-cancel" class="btn btn-secondary btn-soft flex-1">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </template>
     </div>
 
     <svg class="hidden">
@@ -66,40 +102,11 @@
         </symbol>
     </svg>
 
-    <dialog id="song-edit-modal" class="modal">
-        <div class="modal-box p-3 md:p-6 font-bold flex flex-col gap-3 md:gap-6 ">
-            <h2>Edit song informations :</h2>
-            <form method="dialog" class="flex flex-col gap-3 md:gap-5">
-                <label class="input input-secondary w-full">
-                    <span class="label">Title</span>
-                    <input type="text" />
-                </label>
-                <label class="input input-secondary w-full">
-                    <span class="label">Composer</span>
-                    <input type="text" />
-                </label>
-                <label class="input input-secondary w-full">
-                    <span class="label">Style</span>
-                    <input type="text" />
-                </label>
-                <label class="input input-secondary w-full">
-                    <span class="label">Tempo</span>
-                    <input type="text" />
-                </label>
-            </form>
-            <div class="w-full flex gap-3 md:gap-5">
-                <button class="btn btn-primary flex-1">OK</button>
-                <form method="dialog" class="contents">
-                    <button class="btn btn-secondary btn-soft flex-1">Cancel</button>
-                </form>
-            </div>
-        </div>
-    </dialog>
     <div class="z-100 top-[4rem] absolute bg-[#0a0f] h-full w-full" id="drop-zone" data-drag="off"></div>
 
     <header class="text-center ">
-        <h2 class="text-2xl py-2 md:py-4 shadow-lg/20">mxltoireal.com</h2>
-        <h1 class="text-3xl py-4 md:py-6">Convert Musicxml files to iReal Pro</h1>
+        <h2 class="text-2xl py-2 md:py-4 shadow-lg/20 font-bold">mxltoireal.com</h2>
+        <h1 class="text-3xl md:text-3xl p-6 ">Convert musicxml files to iReal Pro</h1>
     </header>
 
     <main class="relative flex flex-col items-center justify-center h-[18rem] md:h-[20rem] is-filled:h-auto"
