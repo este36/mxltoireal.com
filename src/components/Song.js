@@ -51,7 +51,7 @@ export class Song extends HTMLElement
         this.el(PropEnum.Composer).classList.toggle('empty-song-field', !this.composer);
 		this.el(PropEnum.Title).textContent = (this.title ? this.title : '- Song title -');
         this.el(PropEnum.Title).classList.toggle('empty-song-field', !this.title);
-        if (!this.style) this.style = mxl2irp.STYLE_DEFAULT - 1;
+        if (!this.style) this.style = mxl2irp.STYLE_DEFAULT;
 		this.el(PropEnum.Style).textContent = mxl2irp.get_style_str(this.style);
 		this.el(PropEnum.Tempo).textContent = (
             this.tempo ? this.tempo :
