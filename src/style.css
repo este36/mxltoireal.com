@@ -5,8 +5,16 @@
     /*themes: corporate --default;*/
 }
 
+@font-face {
+    font-family: QuickSand;
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("/Quicksand/Quicksand-VariableFont_wght.ttf") format("truetype-variations");
+}
+
 @theme {
-    --font-sans: 'QuickSand', Inter, sans-serif;
+    --font-sans: QuickSand, Inter, sans-serif;
     --files-width-md: 48ch;
 }
 
