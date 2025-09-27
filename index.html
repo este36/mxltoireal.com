@@ -66,9 +66,11 @@
                         <span class="label">Composer</span>
                         <input id="modal-song-composer" type="text" />
                     </label>
-                    <label for="modal-song-style" class="input input-secondary w-full">
+                    <select class="sr-only"></select>
+                    <label for="modal-song-style" class="select select-secondary appearance-none w-full">
                         <span class="label">Style</span>
-                        <input id="modal-song-style" type="text" />
+                        <select id="modal-song-style" >
+                        </select>
                     </label>
                     <div>
                         <label for="modal-song-tempo" class="input input-secondary validator w-full">
@@ -79,7 +81,7 @@
                         <p class="validator-hint mb-2">Must be between be 40 to 360 bpm.</p>
                     </div>
                     <button class="sr-only false-submit-btn"
-                        inputs="#modal-song-title, #modal-song-composer, #modal-song-style, #modal-song-tempo">
+                        inputs="#modal-song-title, #modal-song-composer, #modal-song-tempo">
                     </button>
                 </div>
                 <div class="w-full flex gap-3 md:gap-5">

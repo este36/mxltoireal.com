@@ -51,10 +51,12 @@ export class Song extends HTMLElement
         this.el(PropEnum.Composer).classList.toggle('empty-song-field', !this.composer);
 		this.el(PropEnum.Title).textContent = (this.title ? this.title : '- Song title -');
         this.el(PropEnum.Title).classList.toggle('empty-song-field', !this.title);
-		const style = mxl2irp.get_style_str(this.style);
-		this.el(PropEnum.Style).textContent = (style ? style : 'Jazz-Even 8ths');
-        if (this.tempo == 0) this.tempo = 120;
-		this.el(PropEnum.Tempo).textContent = this.tempo.toString() + ' bpm';
+        if (!this.style) this.style = mxl2irp.STYLE_DEFAULT - 1;
+		this.el(PropEnum.Style).textContent = mxl2irp.get_style_str(this.style);
+		this.el(PropEnum.Tempo).textContent = (
+            this.tempo ? this.tempo :
+            mxl2irp.get_style_default_tempo(this.style)
+        ) + ' bpm';
 		const key = mxl2irp.get_note_str(this.key);
 		this.el(PropEnum.Key).textContent = (key ? key : 'C');
 	}

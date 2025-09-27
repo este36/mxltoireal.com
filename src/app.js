@@ -72,6 +72,20 @@ function initDropZone() {
 	});
 }
 
+function initSongEditorModal() {
+    const styleSelector = Templates.SongEditorModal.content.querySelector('#modal-song-style');
+    let i = 1;
+    while(true)
+    {
+        const style_str = mxl2irp.get_style_str(i);
+        if (!style_str) break;
+        const newOpt = document.createElement('option');
+        newOpt.textContent = style_str;
+        styleSelector.appendChild(newOpt);
+        i++;
+    }
+}
+
 function getPlaylistName() {
     let name = document.getElementById('input-playlist-name').value.trim();
     if (name.length == 0) name = 'mxltoireal.com';
@@ -100,6 +114,7 @@ function DownloadBtn_onClick() {
 </head>
 <body>
     <h1>${url.outerHTML}</h1>
+    <script>console.log(document.querySelector('a').href.split('==='))</script>
 </body>`;
     const blob = new Blob([textContent], {type: 'text/html'});
     const a = document.createElement('a');
@@ -158,6 +173,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	window.App = App;
 	await mxl2irp.initWasm(wasmUrl);
+    initSongEditorModal();
 	initDropZone();
 
     let inputFiles = document.querySelectorAll('.input-files');
