@@ -1,6 +1,7 @@
 import {App, Templates, updateFilesList, setupFalseSubmitBtns} from '../app.js'
 import * as mxl2irp from 'musicxml-irealpro'
 import { SongEditorModal } from './SongEditorModal.js';
+import { getLocalState, setLocalState } from '../state.js';
 
 const PropEnum = {
 	Composer: "composer",

@@ -4,6 +4,7 @@ import wasmUrl from 'musicxml-irealpro/wasm-module?url'
 import {Song} from './components/Song.js'
 import './components/BtnSquare.js';
 import * as mxl2irp from 'musicxml-irealpro';
+import { setLocalState, getLocalState } from './state.js';
 
 export let App;
 export let Templates;
@@ -31,25 +32,28 @@ export function updateFilesList() {
     App.FilesList.classList.toggle('no-last-border-b', App.FilesList.childElementCount > minFilesList);
 }
 
-function appendSong(file) {
-	const reader = new FileReader();
-	reader.onload = () => {
-		const mxl2irp_result = mxl2irp.getIRealProSong(new Uint8Array(reader.result), file.name);
-		if (mxl2irp_result.error_code != 0) {
-			console.error(mxl2irp.get_error_code_str(mxl2irp_result.error_code));
-			return;
-		}
-		if (document.body.dataset.isEmpty === 'true') {
-			document.body.dataset.isEmpty = 'false';
-		} 
-		App.FilesList.appendChild(new Song(mxl2irp_result.item));
-        updateFilesList();
-	};
-    reader.readAsArrayBuffer(file);
+async function appendSong(file) {
+    return new Promise((resolve, reject) => {
+    	const reader = new FileReader();
+        reader.onerror = () => reject(reader.error);
+    	reader.onload = () => {
+    		const mxl2irp_result = mxl2irp.getIRealProSong(new Uint8Array(reader.result), file.name);
+    		if (mxl2irp_result.error_code != 0) {
+    			reject(new Error(mxl2irp.get_error_code_str(mxl2irp_result.error_code)));
+    			return;
+    		}
+    		if (document.body.dataset.isEmpty === 'true') {
+    			document.body.dataset.isEmpty = 'false';
+    		} 
+    		App.FilesList.appendChild(new Song(mxl2irp_result.item));
+            resolve(0);
+    	};
+        reader.readAsArrayBuffer(file);
+    })
 }
 
 let dragCount = 0;
-function initDropZone() {
+async function initDropZone() {
 	document.body.addEventListener('dragenter', (e) => {
 		e.preventDefault();
 		if (dragCount == 0)
@@ -63,12 +67,13 @@ function initDropZone() {
 			App.DropZone.dataset.drag = 'off';
 	});
 	document.body.addEventListener('dragover', (e) => e.preventDefault());
-	document.body.addEventListener('drop', (e) => {
+	document.body.addEventListener('drop', async (e) => {
 		e.preventDefault();
 		dragCount = 0;
 		App.DropZone.dataset.drag = 'off';
 		for (const file of e.dataTransfer.files)
-			appendSong(file);
+			await appendSong(file);
+        updateFilesList();
 	});
 }
 
@@ -87,7 +92,7 @@ function initSongEditorModal() {
 }
 
 function getPlaylistName() {
-    let name = document.getElementById('input-playlist-name').value.trim();
+    let name = App.PlaylistName.value.trim();
     if (name.length == 0) name = 'mxltoireal.com';
     return name;
 }
@@ -124,6 +129,7 @@ function DownloadBtn_onClick() {
     a.download = playlist_name.replace(/ /g, '_') + '.html';
     a.click();
     URL.revokeObjectURL(a_url);
+    setLocalState([]);
 }
 
 function OpenInIrealproBtn_onClick(event) {
@@ -148,6 +154,23 @@ export function setupFalseSubmitBtns(scope) {
     }
 }
 
+let FilesListStateIsInit = false;
+async function initFilesListState() {
+    const lastState = await getLocalState();
+    if (!lastState.isValid()) {
+        await setLocalState([]);
+        FilesListStateIsInit = true;
+        return;
+    }
+    mxl2irp.Wasm.HEAPU8.set(lastState.WasmHeap);
+    for (const song_ptr of lastState.SongsPtrs) {
+        App.FilesList.appendChild(new Song(song_ptr));
+    }
+    document.body.dataset.isEmpty = 'false';
+    App.PlaylistName.value = lastState.PlaylistName;
+    updateFilesList();
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
 	Templates = {
 		Song: document.getElementById('song-template'),
@@ -169,7 +192,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         DownloadFooter: document.getElementById('download-footer'),
         DownloadBtn: document.getElementById('download-btn'),
         OpenInIrealproBtn: document.getElementById('open-in-irealpro-btn'),
+        PlaylistName: document.getElementById('input-playlist-name'),
 	};
+
+
+    App.DownloadBtn.addEventListener('click', DownloadBtn_onClick);
+    App.OpenInIrealproBtn.addEventListener('click', OpenInIrealproBtn_onClick);
+    setupFalseSubmitBtns(document.body);
 
 	window.App = App;
 	await mxl2irp.initWasm(wasmUrl);
@@ -178,10 +207,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let inputFiles = document.querySelectorAll('.input-files');
     for (const inputFile of inputFiles) {
-        inputFile.addEventListener('change', (e) => {
+        inputFile.addEventListener('change', async (e) => {
             for (const file of e.target.files) {
-                appendSong(file);
+                // const perf1 = performance.now()
+                await appendSong(file);
+                // console.log('appendSong', performance.now() - perf1 + 'ms')
             }
+            updateFilesList();
         });
     }
 
@@ -191,8 +223,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
     resizeObserver.observe(App.FilesList);
-
-    App.DownloadBtn.addEventListener('click', DownloadBtn_onClick);
-    App.OpenInIrealproBtn.addEventListener('click', OpenInIrealproBtn_onClick);
-    setupFalseSubmitBtns(document.body);
+    const updateState = () => {
+        if (FilesListStateIsInit) {
+            const songs = App.FilesList.querySelectorAll('song-template');
+            setLocalState(songs, App.PlaylistName.value.trim());
+        }
+        FilesListStateIsInit = true;
+    }
+    const songsObserver = new MutationObserver(updateState);
+    songsObserver.observe(App.FilesCount, { childList: true, characterData: true, subtree: true });
+    App.PlaylistName.addEventListener('change', updateState)
+    initFilesListState();
 });
