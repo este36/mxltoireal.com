@@ -51,6 +51,7 @@ export class SongEditorModal extends HTMLElement
             hilite: false
         };
         const container = this.modal.querySelector('#preview');
+        container.innerHTML = '';
         const renderer = new iRealRenderer();
         renderer.parse(irSong);
         renderer.render(irSong, container, options);
