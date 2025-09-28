@@ -62,6 +62,14 @@ export class Song extends HTMLElement
 		this.el(PropEnum.Key).textContent = (key ? key : 'C');
 	}
 
+    renderHtml() {
+        const htmlPtr = mxl2irp.irp_song_get_html(this.ptr);
+        if (!htmlPtr)
+            return null;
+        const htmlResult = mxl2irp.Wasm.UTF8ToString(htmlPtr);
+        mxl2irp.free(htmlPtr);
+        return htmlResult;
+    }
 
 	get composer() {
 		return mxl2irp.irp_song_get_composer(this.ptr);

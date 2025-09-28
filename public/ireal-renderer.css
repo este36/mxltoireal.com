@@ -1,0 +1,187 @@
+/*
+* ireal-renderer CSS.
+*/
+
+@font-face{ 
+	font-family: 'iRealFont';
+	src: url('iRealFont/iRealFont.woff') format('woff'),
+	     url('iRealFont/iRealFont.ttf') format('truetype'),
+	     url('iRealFont/iRealFont.svg#webfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+irr-char, irr-lbar, irr-rbar, irr-measure, irr-annot {
+	font-family: iRealFont;
+}
+
+.irr-small {
+	font-stretch: condensed !important;
+}
+
+.small > * {
+    display: inline-block;
+    transform: scaleX(0.6);
+}
+
+irr-chords {
+	box-sizing: border-box;
+	line-height:normal;
+	display: grid;
+	grid-row-gap: 0.4em;
+	grid-template-columns: repeat(16, 6.25%);
+	width: calc(100% - 1ch);
+	margin-left:1ch;
+	page-break-inside:avoid;
+}
+
+irr-cell {
+	vertical-align: top;
+	position: relative;
+	margin-top:0;
+	white-space:nowrap;
+}
+
+irr-lbar {
+	margin-right: 4px;
+}
+irr-rbar {
+	float: right;
+}
+irr-char.single-repeat {
+	float: right;
+}
+irr-char.double-repeat {
+	float: right;
+	margin-right: -0.4em;
+}
+irr-char.irr-root {
+	padding-left: 1ch;
+}
+
+irr-chord {
+	overflow: visible;
+	position: relative;
+}
+
+irr-chord>sup, irr-chord>sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+  font-size: 0.7em;
+}
+
+irr-chord>sub {
+  position: relative;
+	font-size: 0.4em;
+	top: 0.4em; 
+}
+
+irr-chord>irr-chord {
+	font-size: 0.6em;
+	transform: translate(30%, -60%);
+	position: absolute;
+}
+
+irr-over {
+	display: block;
+	margin-top: -0.4em;
+	margin-left: 1ch;
+	font-size: 0.8em;
+}
+
+irr-chord>irr-chord>irr-over {
+	display: inline;
+	font-size: 0.8em;
+	margin:  0;
+}
+irr-over:before {
+	content:"/";
+}
+
+irr-measure {
+	font-size: 0.9em;
+	font-weight: normal;
+	position: absolute;
+	transform: translate(-0.5ch, -0.15em);
+	line-height: 1.05em;
+	text-align: center;
+}
+
+irr-spacer {
+	grid-column-start: 1;
+	grid-column-end: 17;
+}
+
+irr-section {
+	float: left;
+	position: absolute;
+	top: -1em;
+	left: -0.2em;
+	font-size: 0.5em;
+	font-weight: bold;
+	margin-left: -2ch;
+	padding: 0px 4px;
+	background-color: #ccc;
+}
+
+irr-comment {
+	position: absolute;
+	left: 0;
+	overflow: visible;
+	font: bold 0.5em monospace;
+	white-space: pre;
+	letter-spacing: 0;
+	top: 2.5em;
+}
+irr-cell.irr-comment {
+	padding-bottom: 0.3em;
+}
+
+irr-repeat {
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	width: 200%;
+	text-align: left;
+	padding-left: 2px;
+	font-size: 0.3em;
+	font-weight: bold;
+	position: absolute;
+	left: 0;
+	top: -0.8em;
+}
+irr-repeat:after {
+	content: ".";
+}
+
+irr-annot {
+	font-size: 0.8em;
+	position: absolute;
+	top: -0.8em;
+	left: 0.8em;
+}
+
+irr-chords[hilite] irr-chord>irr-chord,
+irr-chords[hilite] irr-over,
+irr-chords[hilite] irr-annot,
+irr-chords[hilite] irr-repeat,
+irr-chords[hilite] irr-measure,
+irr-chords[hilite] irr-comment {
+	color: red !important;
+}
+irr-chords[hilite] irr-section{
+	background-color: #fcc;
+}
+irr-chords[hilite] irr-repeat {
+	border-left-color: red;
+	border-top-color: red;
+}
+irr-chords[hilite] irr-char.irr-root {
+	color: lightblue !important;
+}
+
+@media print {
+	irr-section {
+		border: 1px solid grey;
+		padding: 0px 3px;
+	}
+}

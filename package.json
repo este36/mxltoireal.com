@@ -21,6 +21,7 @@
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.1.13",
+		"ireal-renderer": "^1.1.0",
 		"tailwindcss": "^4.1.13"
 	}
 }

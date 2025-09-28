@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/ireal-renderer.css">
     <title>Convert musicxml to iReal Pro</title>
 </head>
 <body class="relative md:min-h-[100vh]" data-is-empty="true">
@@ -45,16 +46,18 @@
             <btn-square-template use="#icon-delete" data-id="delete"></btn-square-template>
         </div>
     </template>
+
     <template class="btn btn-square p-2 bg-base-content/10" id="btn-square-template">
         <svg class="w-11 h-11">
           <use href=""></use>
         </svg>
     </template>
+
     <template id="song-editor-modal-template" class="modal">
         <div class="modal-box p-3 md:p-6 font-bold flex flex-col gap-3 md:gap-6 ">
-            <h2>Edit song informations :</h2>
+            <h2 class="text-xl">Edit song informations :</h2>
             <form>
-                <div class="flex flex-col gap-3 md:gap-5">
+                <div class="flex flex-col gap-3 md:gap-5 mb-3">
                     <label for="modal-song-title" class="input input-secondary w-full">
                         <span class="label">Title</span>
                         <input id="modal-song-title" type="text" />
@@ -75,7 +78,19 @@
                             <input id="modal-song-tempo" type="number" required
                                min="40" max="360" title="Must be between 40 to 360 bpm."/>
                         </label>
-                        <p class="validator-hint mb-2">Must be between be 40 to 360 bpm.</p>
+                        <p class="hidden validator-hint mb-2 md:mb-0">Must be between be 40 to 360 bpm.</p>
+                    </div>
+                    <div class="">
+                        <button id="preview-btn" class="flex items-center pb-3 w-full">
+                            <span class="text-xl text-center">Preview</span>
+                            <svg class="ml-[.7ch] w-[1.2ch] aspect-square preview-open:rotate-90 transition-all fill-base-content">
+                                <use href="#icon-dropdown-1"></use>
+                            </svg>
+                        </button>
+                        <div class="px-[15%] hidden preview-open:block transition-all overflow-scroll max-h-65
+                            preview-open:border-1 border-bg-secondary">
+                            <div id="preview" class="bg-base-content/10"></div>
+                        </div>
                     </div>
                     <button class="sr-only false-submit-btn"
                         inputs="#modal-song-title, #modal-song-composer, #modal-song-tempo">
@@ -88,6 +103,7 @@
             </form>
         </div>
     </template>
+
     </div>
 
     <svg class="hidden">
@@ -99,6 +115,13 @@
         <symbol id="icon-settings" viewBox="0 0 512 512">
             <path d="M34.283,384c17.646,30.626,56.779,41.148,87.405,23.502c0.021-0.012,0.041-0.024,0.062-0.036l9.493-5.483   c17.92,15.332,38.518,27.222,60.757,35.072V448c0,35.346,28.654,64,64,64s64-28.654,64-64v-10.944   c22.242-7.863,42.841-19.767,60.757-35.115l9.536,5.504c30.633,17.673,69.794,7.167,87.467-23.467   c17.673-30.633,7.167-69.794-23.467-87.467l0,0l-9.472-5.461c4.264-23.201,4.264-46.985,0-70.187l9.472-5.461   c30.633-17.673,41.14-56.833,23.467-87.467c-17.673-30.633-56.833-41.14-87.467-23.467l-9.493,5.483   C362.862,94.638,342.25,82.77,320,74.944V64c0-35.346-28.654-64-64-64s-64,28.654-64,64v10.944   c-22.242,7.863-42.841,19.767-60.757,35.115l-9.536-5.525C91.073,86.86,51.913,97.367,34.24,128s-7.167,69.794,23.467,87.467l0,0   l9.472,5.461c-4.264,23.201-4.264,46.985,0,70.187l-9.472,5.461C27.158,314.296,16.686,353.38,34.283,384z M256,170.667   c47.128,0,85.333,38.205,85.333,85.333S303.128,341.333,256,341.333S170.667,303.128,170.667,256S208.872,170.667,256,170.667z"/>
         </symbol>
+        <symbol id="icon-dropdown" viewBox="0 0 24 24">
+            <path d="M18.71,8.21a1,1,0,0,0-1.42,0l-4.58,4.58a1,1,0,0,1-1.42,0L6.71,8.21a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.41l4.59,4.59a3,3,0,0,0,4.24,0l4.59-4.59A1,1,0,0,0,18.71,8.21Z"/>
+        </symbol>
+        <symbol id="icon-dropdown-1" viewBox="0 0 24 24">
+            <path d="M8.127,24l9.507-9.52a3.507,3.507,0,0,0,0-4.948L8.116,0,6,2.121l9.518,9.531a.5.5,0,0,1,0,.707L6.01,21.879Z"/>
+        </svg>
+
     </svg>
 
     <div class="z-100 top-[4rem] absolute bg-[#0a0f] h-full w-full" id="drop-zone" data-drag="off"></div>

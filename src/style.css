@@ -24,6 +24,12 @@
     }
 }
 
+@custom-variant preview-open {
+    &:where(dialog[data-preview-closed=false] *, dialog[data-preview-closed=false]) {
+        @slot;
+    }
+}
+
 .empty-song-field {
     @apply text-warning font-normal;
 }

@@ -1,16 +1,24 @@
 import { Templates, setupFalseSubmitBtns } from "../app";
+import { Playlist, iRealRenderer } from "ireal-renderer";
 import * as mxl2irp from 'musicxml-irealpro';
 
 export class SongEditorModal extends HTMLElement
 {
-    constructor(song) {
+
+    constructor(song)
+    {
         super();
         this.song = song;
         this.modal = document.createElement('dialog');
         this.modal.append(Templates.SongEditorModal.content.cloneNode(true));
         this.modal.classList.add(...Templates.SongEditorModal.classList);
+        this.modal.dataset.previewClosed = true;
         this.selectedStyle = mxl2irp.STYLE_DEFAULT;
+        this.updatePreview();
     };
+
+    renderPreview() {
+    }
 
     updateSong() {
         this.song.title = this.inputs.title.value;
@@ -34,6 +42,18 @@ export class SongEditorModal extends HTMLElement
     }
 
     async updatePreview() {
+        const rawHtml = this.song.renderHtml();
+        const irSong = (new Playlist(rawHtml)).songs[0];
+        const options = {
+            minor: "-",
+            transpose: 0,
+            useH: false,
+            hilite: false
+        };
+        const container = this.modal.querySelector('#preview');
+        const renderer = new iRealRenderer();
+        renderer.parse(irSong);
+        renderer.render(irSong, container, options);
     }
 
     connectedCallback() {
@@ -61,6 +81,12 @@ export class SongEditorModal extends HTMLElement
         if (document.activeElement) {
             document.activeElement.blur();
         }
+        const previewBtn = this.modal.querySelector('#preview-btn');
+        previewBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            let isopen = this.modal.dataset.previewClosed;
+            this.modal.dataset.previewClosed = !(isopen === 'true');
+        })
     }
 }
 
