@@ -17,7 +17,7 @@
 	"homepage": "https://github.com/este36/mxltoireal.com#readme",
 	"devDependencies": {
 		"daisyui": "^5.1.6",
-		"musicxml-irealpro": "^1.0.21",
+		"musicxml-irealpro": "^1.0.22",
 		"vite": "^7.1.3"
 	},
 	"dependencies": {
