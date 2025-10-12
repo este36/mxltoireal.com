@@ -201,6 +201,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupFalseSubmitBtns(document.body);
 
 	window.App = App;
+	window.mxl2irp = mxl2irp;
 	await mxl2irp.initWasm(wasmUrl);
     initSongEditorModal();
 	initDropZone();
