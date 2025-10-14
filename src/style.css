@@ -66,3 +66,29 @@ song-template {
 .no-last-border-b>:last-child {
     border-bottom-width: 0px;
 }
+
+#preview {
+	@apply bg-base-content/10 pb-2 px-2;
+}
+
+.preview-credentials {
+	font-family: "Open Sans Condensed", sans-serif;
+	display: flex;
+	height: 2.2rem;
+	position: relative;
+	justify-content: center;
+	margin-bottom: .2rem;
+}
+
+.preview-title {
+	/* font-weight: 00; */
+	font-size: .9rem;
+	position: absolute;
+}
+
+.preview-composer {
+	font-weight: 400;
+	font-size: .7rem;
+	margin-left: auto;
+	margin-top: auto;
+}

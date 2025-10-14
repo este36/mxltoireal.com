@@ -1,5 +1,5 @@
 import { Templates, setupFalseSubmitBtns } from "../app";
-import { Playlist, iRealRenderer } from "ireal-renderer";
+import { Playlist, iRealRenderer } from "./ireal-renderer";
 import * as mxl2irp from 'musicxml-irealpro';
 
 export class SongEditorModal extends HTMLElement
@@ -12,13 +12,10 @@ export class SongEditorModal extends HTMLElement
         this.modal = document.createElement('dialog');
         this.modal.append(Templates.SongEditorModal.content.cloneNode(true));
         this.modal.classList.add(...Templates.SongEditorModal.classList);
-        this.modal.dataset.previewClosed = true;
+        this.modal.dataset.previewClosed = false;
         this.selectedStyle = mxl2irp.STYLE_DEFAULT;
         this.updatePreview();
     };
-
-    renderPreview() {
-    }
 
     updateSong() {
         this.song.title = this.inputs.title.value;
@@ -51,7 +48,12 @@ export class SongEditorModal extends HTMLElement
             hilite: false
         };
         const container = this.modal.querySelector('#preview');
-        container.innerHTML = '';
+        container.innerHTML = `
+			<div class="preview-credentials">
+				<div class="preview-title">${this.song.title}</div>
+				<div class="preview-composer">${this.song.composer}</div>
+			</div>
+		`;
         const renderer = new iRealRenderer();
         renderer.parse(irSong);
         renderer.render(irSong, container, options);

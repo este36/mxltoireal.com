@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/ireal-renderer.css">
     <title>Convert musicxml to iReal Pro</title>
 </head>
 <body class="relative md:min-h-[100vh]" data-is-empty="true">
@@ -14,7 +13,8 @@
     </noscript>
 
     <div class="hidden">
-    <template id="download-footer-template" class="hidden is-filled:flex justify-center sticky bottom-0 w-full h-26 bg-base-100">
+    <template id="download-footer-template"
+		class="hidden is-filled:flex justify-center sticky bottom-0 w-full h-26 bg-base-100">
         <div class="flex justify-between items-center h-full gap-2 p-2 bg-base-content/10" id="download-footer">
             <div class="w-3/8 grid grid-content-center">
                 <p class="font-bold mb-1" id="files-count"></p>
@@ -89,7 +89,7 @@
                         </button>
                         <div class="px-[12%] hidden preview-open:block transition-all overflow-scroll max-h-65
                             preview-open:border-1 border-bg-secondary">
-                            <div id="preview" class="bg-base-content/10 py-5 px-4"></div>
+                            <div id="preview" class=""></div>
                         </div>
                     </div>
                     <button class="sr-only false-submit-btn"
