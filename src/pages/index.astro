@@ -1,0 +1,64 @@
+---
+import Song from "../components/app/Song.astro"
+import SongEditorModal from "../components/app/SongEditorModal.astro"
+import DownloadFooter from "../components/app/DownloadFooter.astro"
+import BtnSquare from "../components/app/BtnSquare.astro"
+import Icons from "../components/app/Icons.astro"
+import Header from "../components/Header.astro"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<script src="../app.js"></script>
+		<title>Astro</title>
+	</head>
+	<body>
+	<div class="hidden">
+		<DownloadFooter/>
+		<Song/>
+		<SongEditorModal/>
+		<BtnSquare/>
+	</div>
+	<Icons/>
+
+
+	<Header/>
+
+	<div id="drop-zone" class="z-100 top-[4rem] absolute bg-[#0a0f] h-full w-full"
+			data-drag="off">
+	</div>
+
+	<main id="app" class="relative flex flex-col items-center justify-center
+				h-[18rem] md:h-[20rem] is-filled:h-auto">
+		<div class="z-0 absolute w-[90%] md:w-[50%] h-[100%] is-filled:hidden
+					bg-base-content/10 rounded-xl inset-shadow-sm/10"></div>
+		<label class="z-1 btn btn-primary btn-lg p-5 is-filled:hidden input-files" for="input-files">
+			Select File(s)...
+			<input class="sr-only" id="input-files" type="file" multiple/>
+		</label>
+		<h6 class="hidden md:block is-filled:hidden mt-1 text-base-content/70">or drag and drop here</h6>
+		<div class="[--min-fileslist:3] md:[--min-fileslist:4]
+			hidden is-filled:block border-bg-secondary border-2 mt-8 is-filled:mt-0 relative
+			min-h-[calc(var(--min-fileslist)_*_var(--song-card-height)_+_var(--playlistname-height))]"
+			id="files-list">
+			<form>
+			<label class="hidden is-filled:flex w-full bg-base-100 gap-[1ch]
+						font-bold border-b-2 border-bg-secondary p-4"
+				for="input-playlist-name">
+				<span class="text-base-content/70">Playlist name :</span>
+				<input class="border-b-2 border-base-content/70
+						outline-none focus:outline-none placeholder:text-base-content/30"
+					id="input-playlist-name" type="text" placeholder="write here...">
+			</label>
+			<button class="sr-only false-submit-btn" data-inputs="#input-playlist-name"></button>
+			</form>
+		</div>
+	</main>
+	<div class="hidden is-filled:block h-[calc(var(--song-card-height)_*_2)] bg-base-100"></div>
+
+	</body>
+</html>
