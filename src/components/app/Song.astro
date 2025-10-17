@@ -1,0 +1,16 @@
+<template id="song-template" class="flex gap-2 border-bg-secondary p-2">
+	<div class="flex flex-col rounded-md shadow-md p-2" >
+		<div class="w-[30ch] md:w-[48ch] m-0">
+			<div class="text-xl font-bold truncate leading-[1.1]" data-id="title">Title</div>
+			<div class="font-bold truncate" data-id="composer">Composer</div>
+		</div>
+		<div class="flex gap-2"> <div class="flex-grow" data-id="style">Swing</div>
+			<div data-id="tempo">Tempo</div>
+			<div data-id="key">Key</div>
+		</div>
+	</div>
+	<div class="flex flex-col gap-2">
+		<btn-square-template use="#icon-settings" fill="currentColor" data-id="edit"></btn-square-template>
+		<btn-square-template use="#icon-delete" data-id="delete"></btn-square-template>
+	</div>
+</template>

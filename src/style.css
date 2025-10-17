@@ -1,70 +1,70 @@
 @import "tailwindcss";
 @plugin "daisyui"{
-    /*themes: corporate --default, business --prefersdark;*/
-    themes: corporate --default, business --prefersdark;
-    /*themes: corporate --default;*/
+	/*themes: corporate --default, business --prefersdark;*/
+	themes: corporate --default, business --prefersdark;
+	/*themes: corporate --default;*/
 }
 
 @font-face {
-    font-family: QuickSand;
-    font-style: normal;
-    font-weight: 300 700;
-    font-display: swap;
-    src: url("/Quicksand/Quicksand-VariableFont_wght.ttf") format("truetype-variations");
+	font-family: QuickSand;
+	font-style: normal;
+	font-weight: 300 700;
+	font-display: swap;
+	src: url("/fonts/Quicksand-VariableFont_wght.ttf") format("truetype-variations");
 }
 
 @theme {
-    --font-sans: QuickSand, Inter, sans-serif;
-    --files-width-md: 48ch;
+	--font-sans: QuickSand, Inter, sans-serif;
+	--files-width-md: 48ch;
 }
 
 @custom-variant is-filled {
-    &:where(body[data-is-empty=false] *, body[data-is-empty=false]) {
-        @slot;
-    }
+	&:where(body[data-is-empty=false] *, body[data-is-empty=false]) {
+		@slot;
+	}
 }
 
 @custom-variant preview-open {
-    &:where(dialog[data-preview-closed=false] *, dialog[data-preview-closed=false]) {
-        @slot;
-    }
+	&:where(dialog[data-preview-closed=false] *, dialog[data-preview-closed=false]) {
+		@slot;
+	}
 }
 
 .empty-song-field {
-    @apply text-warning font-normal;
+	@apply text-warning font-normal;
 }
 
 song-editor-modal {
-    @apply absolute w-full h-full;
+	@apply absolute w-full h-full;
 }
 
 .border-bg-secondary {
-    @apply border-base-content/10;
+	@apply border-base-content/10;
 }
 
 #drop-zone[data-drag=off] {
-    display: none;
+	display: none;
 }
 
 #drop-zone[data-drag=on] {
-    display: block;
+	display: block;
 }
 
 .anchor {
-    anchor-name: --a;
+	anchor-name: --a;
 }
 
 .anchored {
-    position: position;
+	position: position;
 }
 
 song-template {
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
 }
 
 .no-last-border-b>:last-child {
-    border-bottom-width: 0px;
+	border-bottom-width: 0px;
 }
 
 #preview {

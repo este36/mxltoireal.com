@@ -1,0 +1,50 @@
+<template id="song-editor-modal-template" class="modal">
+	<div class="modal-box p-3 md:p-6 font-bold flex flex-col gap-3 md:gap-6 ">
+		<h2 class="text-xl">Edit song informations :</h2>
+		<form>
+			<div class="flex flex-col gap-3 md:gap-5 mb-3">
+				<label for="modal-song-title" class="input input-secondary w-full">
+					<span class="label">Title</span>
+					<input id="modal-song-title" type="text" />
+				</label>
+				<label for="modal-song-composer" class="input input-secondary w-full">
+					<span class="label">Composer</span>
+					<input id="modal-song-composer" type="text" />
+				</label>
+				<select class="sr-only"></select>
+				<label for="modal-song-style" class="select select-secondary appearance-none w-full">
+					<span class="label">Style</span>
+					<select id="modal-song-style" >
+					</select>
+				</label>
+				<div>
+					<label for="modal-song-tempo" class="input input-secondary validator w-full">
+						<span class="label">Tempo</span>
+						<input id="modal-song-tempo" type="number" required
+						   min="40" max="360" title="Must be between 40 to 360 bpm."/>
+					</label>
+					<p class="hidden validator-hint mb-2 md:mb-0">Must be between be 40 to 360 bpm.</p>
+				</div>
+				<div class="">
+					<button id="preview-btn" class="flex items-center pb-3 w-full">
+						<span class="text-xl text-center">Preview</span>
+						<svg class="ml-[.7ch] w-[1.2ch] aspect-square preview-open:rotate-90 transition-all fill-base-content">
+							<use href="#icon-dropdown-1"></use>
+						</svg>
+					</button>
+					<div class="px-[12%] hidden preview-open:block transition-all overflow-scroll max-h-65
+						preview-open:border-1 border-bg-secondary">
+						<div id="preview" class=""></div>
+					</div>
+				</div>
+				<button class="sr-only false-submit-btn"
+					data-inputs="#modal-song-title, #modal-song-composer, #modal-song-tempo">
+				</button>
+			</div>
+			<div class="w-full flex gap-3 md:gap-5">
+				<button id="modal-song-ok" class="btn btn-primary flex-1">OK</button>
+				<button id="modal-song-cancel" class="btn btn-secondary btn-soft flex-1">Cancel</button>
+			</div>
+		</form>
+	</div>
+</template>

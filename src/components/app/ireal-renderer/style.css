@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap');
+
+@reference "../../../style.css";
+/*
+* ireal-renderer CSS.
+*/
+@font-face {
+  font-family: 'iRealFont';
+  src:
+	url('/fonts/iRealFont.ttf') format('truetype'),
+	url('/fonts/iRealFont.woff') format('woff'),
+	url('/fonts/iRealFont.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'iRealFont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.Single-Barline:before {
+  content: "\e000";
+}
+.Double-Barline:before {
+  content: "\e001";
+}
+.Final-Barline:before {
+  content: "\e002";
+}
+.Reverse-Final-Barline:before {
+  content: "\e003";
+}
+.Left-Repeat-Sign:before {
+  content: "\e004";
+}
+.Right-Repeat-Sign:before {
+  content: "\e005";
+}
+.Dal-Segno:before {
+  content: "\e010";
+}
+.Da-Capo:before {
+  content: "\e012";
+}
+.No-Chord:before {
+  content: "\e011";
+}
+.Fermata:before {
+  content: "\e013";
+}
+.Segno:before {
+  content: "\e014";
+}
+.Coda:before {
+  content: "\e015";
+}
+.Codetta:before {
+  content: "\e016";
+}
+.Root:before {
+  content: "\e017";
+}
+.Root-Filled:before {
+  content: "\e018";
+}
+.Repeated-Figure1:before {
+  content: "\e020";
+}
+.Repeated-Figure2:before {
+  content: "\e021";
+}
+.Repeated-Figure3:before {
+  content: "\e022";
+}
+.Repeated-Figure4:before {
+  content: "\e023";
+}
+.Measure-0-Low:before {
+  content: "\e030";
+}
+.Measure-1-Low:before {
+  content: "\e031";
+}
+.Measure-2-Low:before {
+  content: "\e032";
+}
+.Measure-3-Low:before {
+  content: "\e033";
+}
+.Measure-4-Low:before {
+  content: "\e034";
+}
+.Measure-5-Low:before {
+  content: "\e035";
+}
+.Measure-6-Low:before {
+  content: "\e036";
+}
+.Measure-7-Low:before {
+  content: "\e037";
+}
+.Measure-8-Low:before {
+  content: "\e038";
+}
+.Measure-9-Low:before {
+  content: "\e039";
+}
+.Measure-10-Low:before {
+  content: "\e03a";
+}
+.Measure-11-Low:before {
+  content: "\e03b";
+}
+.Measure-12-Low:before {
+  content: "\e03c";
+}
+.Measure-0-High:before {
+  content: "\e040";
+}
+.Measure-1-High:before {
+  content: "\e041";
+}
+.Measure-2-High:before {
+  content: "\e042";
+}
+.Measure-3-High:before {
+  content: "\e043";
+}
+.Measure-4-High:before {
+  content: "\e044";
+}
+.Measure-5-High:before {
+  content: "\e045";
+}
+.Measure-6-High:before {
+  content: "\e046";
+}
+.Measure-7-High:before {
+  content: "\e047";
+}
+.Measure-8-High:before {
+  content: "\e048";
+}
+.Measure-9-High:before {
+  content: "\e049";
+}
+.Measure-10-High:before {
+  content: "\e04a";
+}
+.Measure-11-High:before {
+  content: "\e04b";
+}
+.Measure-12-High:before {
+  content: "\e04c";
+}
+
+irr-char, irr-lbar, irr-rbar, irr-measure, irr-annot {
+	font-family: iRealFont;
+	margin-top: 0.2em;
+}
+
+.small {
+  transform: scaleX(0.7);
+}
+
+.irr-small {
+	font-stretch: condensed !important;
+}
+
+/* Outer container; if attribute hilite is set, hiliting is active */
+irr-chords {
+	font-family: "Open Sans Condensed", sans-serif;
+	box-sizing: border-box;
+	line-height:normal;
+	display: grid;
+	grid-row-gap: 0.4em;
+	grid-template-columns: repeat(16, 6.25%);
+	width: calc(100% - 1ch);
+	margin-left:1ch;
+	page-break-inside:avoid;
+}
+
+/* The cell contains bars, chords, annots, and comments */
+irr-cell {
+	vertical-align: top;
+	position: relative;
+	/* margin-top: 2.5em; */
+	white-space:nowrap;
+}
+
+/* left and right bars */
+irr-lbar {
+	margin-right: 4px;
+}
+irr-rbar {
+	float: right;
+}
+/* repeat symbols */
+irr-char.Repeated-Figure2 {
+	/* float: right; */
+}
+irr-char.Repeated-Figure3 {
+	float: right;
+	margin-right: -0.4em;
+}
+irr-char.irr-root {
+	padding-left: 1ch;
+}
+
+irr-chord {
+	overflow: visible;
+	position: relative;
+}
+
+irr-chord>sup, irr-chord>sub {
+  vertical-align: baseline;
+  position: relative;
+}
+
+irr-chord>sup {
+  margin-left: -0.1em;
+  top: -0.6em;
+  font-size: 0.6em;
+}
+
+irr-chord>sub {
+  top: 0.4em;
+  font-size: 0.6em;
+  font-stretch: condensed;
+}
+
+irr-chord>sup+sub {
+  /* both: move the subscript in */
+  margin-left: -0.3em;
+}
+
+/* Alternate chords above the regular chord */
+irr-chord>irr-chord {
+	font-size: 0.6em;
+	transform: translate(30%, -60%);
+	position: absolute;
+}
+
+/* The "over note" in regular chords */
+irr-over {
+	display: block;
+	position: absolute;
+	top: 1rem;
+	transform: scale(0.9);
+	margin-left: 1.4ch;
+	margin-top: 0.1em;
+	font-size: 0.8em;
+}
+
+.small > irr-over {
+	margin-left: 1ch;
+}
+
+irr-over:before {
+	position: absolute;
+	content:"/";
+	font-weight: 100;
+	transform: scaleX(2) scaleY(.8);
+	left: -.1em;
+	top: -.5em;
+}
+
+irr-over>sup {
+	font-size: 0.6em;
+}
+
+/* The "over note" in alt chords is behind the note */
+irr-chord>irr-chord>irr-over {
+	display: inline;
+	font-size: 0.8em;
+	margin:  0;
+}
+
+/* Measurement, like 4/4 or 3/4 */
+irr-measure {
+	font-size: 0.9em;
+	font-weight: normal;
+	position: absolute;
+	transform: translate(-.8ch, -0.15em);
+	line-height: 1.05em;
+	text-align: center;
+}
+
+/* vertical spacer */
+irr-spacer {
+	grid-column-start: 1;
+	grid-column-end: 17;
+}
+
+/* Sections like "in", "A", "B" etc */
+irr-section {
+	@apply text-base-100 bg-base-content;
+	float: left;
+	position: absolute;
+	top: -.5em;
+	left: .3em;
+	font-family: sans-serif;
+	line-height: .95;
+	font-size: 0.5em;
+	font-weight: bold;
+	margin-left: -2ch;
+	padding: 0px 2px;
+}
+
+/* comments */
+irr-comment {
+	position: absolute;
+	left: 0;
+	overflow: visible;
+	font: bold 0.5em monospace;
+	white-space: pre;
+	letter-spacing: 0;
+	top: 3em;
+}
+irr-cell.irr-comment {
+	padding-bottom: 0.3em;
+}
+
+/* Repeat bars (1., 2. etc) */
+irr-repeat {
+	@apply border-base-content;
+	border-left: 1px solid;
+	border-top: 1px solid;
+	width: 200%;
+	text-align: left;
+	padding-left: 2px;
+	font-size: 0.3em;
+	font-weight: bold;
+	position: absolute;
+	left: 0;
+	top: -0.8em;
+}
+irr-repeat:after {
+	content: ".";
+}
+
+/* Annotations above the chord, like Coda etc */
+irr-annot {
+	font-size: 0.8em;
+	position: absolute;
+	top: -0.8em;
+	left: 0.8em;
+}
+
+/* special elements like bars, repeats, coda, measure etc 
+   are painted red if the hilite attribute is set */
+
+irr-chords[hilite] irr-chord>irr-chord,
+irr-chords[hilite] irr-over,
+irr-chords[hilite] irr-annot,
+irr-chords[hilite] irr-repeat,
+irr-chords[hilite] irr-measure,
+irr-chords[hilite] irr-comment {
+	color: red !important;
+}
+irr-chords[hilite] irr-section{
+	background-color: #fcc;
+}
+irr-chords[hilite] irr-repeat {
+	border-left-color: red;
+	border-top-color: red;
+}
+irr-chords[hilite] irr-char.irr-root {
+	color: lightblue !important;
+}
+
+.No-Chord:before {
+	font-size: 0.8em;
+	content: "N.C.";
+}
+
+@media print {
+	irr-section {
+		border: 1px solid grey;
+		padding: 0px 3px;
+	}
+}
