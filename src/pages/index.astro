@@ -4,19 +4,9 @@ import SongEditorModal from "../components/app/SongEditorModal.astro"
 import DownloadFooter from "../components/app/DownloadFooter.astro"
 import BtnSquare from "../components/app/BtnSquare.astro"
 import Icons from "../components/app/Icons.astro"
-import Header from "../components/Header.astro"
+import PageLayout from "../layouts/PageLayout.astro"
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<script src="../app.js"></script>
-		<title>Astro</title>
-	</head>
-	<body class="relative md:min-h-[100vh]" data-is-empty="true">
+<PageLayout title="Convert musicxml to iReal Pro">
 	<div class="hidden">
 		<DownloadFooter/>
 		<Song/>
@@ -25,14 +15,11 @@ import Header from "../components/Header.astro"
 	</div>
 	<Icons/>
 
-
-	<Header/>
-
 	<div id="drop-zone" class="z-100 top-[4rem] absolute bg-[#0a0f] h-full w-full"
 			data-drag="off">
 	</div>
 
-	<main id="app" class="relative flex flex-col items-center justify-center
+	<section id="app" class="relative flex flex-col items-center justify-center
 				h-[18rem] md:h-[20rem] is-filled:h-auto">
 		<div class="z-0 absolute w-[90%] md:w-[50%] h-[100%] is-filled:hidden
 					bg-base-content/10 rounded-xl inset-shadow-sm/10"></div>
@@ -57,8 +44,11 @@ import Header from "../components/Header.astro"
 			<button class="sr-only false-submit-btn" data-inputs="#input-playlist-name"></button>
 			</form>
 		</div>
-	</main>
-	<div class="hidden is-filled:block h-[calc(var(--song-card-height)_*_2)] bg-base-100"></div>
-
-	</body>
-</html>
+	</section>
+	<section id="features" >
+		<h4 class="text-2xl">Safe by default</h4>
+		<h4 class="text-2xl">Free and open source</h4>
+		<h4 class="text-2xl">Simple to use</h4>
+	</section>
+	<script src="../app.js"></script>
+</PageLayout>

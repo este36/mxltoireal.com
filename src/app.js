@@ -1,5 +1,3 @@
-import './style.css'
-
 import wasmUrl from 'musicxml-irealpro/wasm-module?url'
 import {Song} from './components/app/Song.js'
 import './components/app/BtnSquare.js';
@@ -182,7 +180,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const downloadFooter = document.createElement('div');
 	downloadFooter.appendChild(Templates.DownloadFooter.content.cloneNode(true));
 	downloadFooter.classList.add(...Templates.DownloadFooter.classList);
-	document.querySelector('main').insertAdjacentElement('afterend', downloadFooter);
+	document.querySelector('#app').insertAdjacentElement('afterend', downloadFooter);
+	document.body.dataset.isEmpty = true;
 
 	App = {
 		MainElement: document.querySelector('main'),
