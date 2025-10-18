@@ -1,0 +1,13 @@
+---
+const {title, icon} = Astro.props;
+---
+<div class="m-10">
+	<div class="flex text-3xl mb-5 items-center">
+		<svg class="fill-base-content h-8 w-10 ">
+			<use href={'#icon-' + icon}>
+			</use>
+		</svg>
+		<h4 class="ml-[1ch]">{title}</h4>
+	</div>
+	<p class="text-md"><slot/></p>
+</div>

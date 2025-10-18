@@ -3,8 +3,11 @@ import Song from "../components/app/Song.astro"
 import SongEditorModal from "../components/app/SongEditorModal.astro"
 import DownloadFooter from "../components/app/DownloadFooter.astro"
 import BtnSquare from "../components/app/BtnSquare.astro"
-import Icons from "../components/app/Icons.astro"
+import Icons from "../components/Icons.astro"
 import PageLayout from "../layouts/PageLayout.astro"
+import Feature from "../components/Feature.astro"
+import Image from "astro/components/Image.astro"
+const imgSize = 60;
 ---
 <PageLayout title="Convert musicxml to iReal Pro">
 	<div class="hidden">
@@ -21,9 +24,10 @@ import PageLayout from "../layouts/PageLayout.astro"
 
 	<section id="app" class="relative flex flex-col items-center justify-center
 				h-[18rem] md:h-[20rem] is-filled:h-auto">
-		<div class="z-0 absolute w-[90%] md:w-[50%] h-[100%] is-filled:hidden
+		<div class="z-0 absolute w-[90%] md:w-[42rem] h-[100%] is-filled:hidden
 					bg-base-content/10 rounded-xl inset-shadow-sm/10"></div>
-		<label class="z-1 btn btn-primary btn-lg p-5 is-filled:hidden input-files" for="input-files">
+		<label for="input-files"
+				class="z-1 btn btn-primary btn-lg p-6 is-filled:hidden input-files">
 			Select File(s)...
 			<input class="sr-only" id="input-files" type="file" multiple/>
 		</label>
@@ -45,10 +49,29 @@ import PageLayout from "../layouts/PageLayout.astro"
 			</form>
 		</div>
 	</section>
-	<section id="features" >
-		<h4 class="text-2xl">Safe by default</h4>
-		<h4 class="text-2xl">Free and open source</h4>
-		<h4 class="text-2xl">Simple to use</h4>
+
+	<section class="flex flex-col items-center mt-2">
+		<div class="w-[90%] md:w-[42rem]">
+			<Feature title="Safe by default" icon="shield">
+				All processing runs locally in your browser - no file is sent to a server.
+				This keeps everything private by default and also makes conversions faster and more responsive.
+			</Feature>
+			<Feature title="Free and open source" icon="diamond">
+				Built by a musician for musicians, the code behind both the algorithm and the site is fully open source. The goal is to have a tool that is simple and transparent.
+			</Feature>
+			<Feature title="Simple to use" icon="file">
+				Just export your songs from Sibelius or MuseScore in MusicXML format (.musicxml or .mxl) and drop them into the interface. The conversion happens right away, and because it’s a web app, it works on any device without installation or setup.
+			</Feature>
+		</div>
+		<div class="mb-10 flex gap-10 items-center">
+			<!-- <p class="text-secondary font-bold">Happy playing !</p> -->
+			<Image class={"rounded-lg"}
+				height={imgSize * 4}
+				width={imgSize * 3}
+				src="/images/hanin-abouzeid-guitar.svg"
+				alt="enjoy">
+			</Image>
+		</div>
 	</section>
 	<script src="../app.js"></script>
 </PageLayout>
