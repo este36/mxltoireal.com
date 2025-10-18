@@ -54,7 +54,7 @@ let dragCount = 0;
 async function initDropZone() {
 	document.body.addEventListener('dragenter', (e) => {
 		e.preventDefault();
-		if (dragCount == 0)
+		if (dragCount == 0 && e.dataTransfer.items[0].kind === 'file')
 			App.DropZone.dataset.drag = 'on';
 		dragCount++;
 	});
