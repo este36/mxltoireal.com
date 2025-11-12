@@ -92,3 +92,20 @@ song-template {
 	margin-left: auto;
 	margin-top: auto;
 }
+
+#privacy, #terms {
+	@apply sm:w-[45ch] sm:px-0 px-2 py-5;
+	& h2 {
+		@apply uppercase tracking-wide text-xl pb-2;
+	}
+	& h4 {
+		@apply py-4 font-bold;
+	}
+	& li::before {
+		content: "-";
+		padding-right: 1ch;
+	}
+	& li {
+		padding-left: 1ch;
+	}
+}
