@@ -42,6 +42,41 @@ song-editor-modal {
 	@apply border-base-content/10;
 }
 
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.fade-out {
+  animation: fadeOut 3s forwards;
+}
+
+.notify-info {
+	@apply bg-info;
+	& .card-body {
+		@apply text-info-content text-xl;
+	}
+}
+
+.notify-warning {
+	@apply bg-warning;
+	& .card-body {
+		@apply text-warning-content;
+	}
+}
+
+.notify-error {
+	@apply bg-error text-error-content text-lg;
+}
+
+#notify-container[data-status=off] {
+	display: none;
+}
+
+#notify-container[data-status=on] {
+	display: flex;
+}
+
 #drop-zone[data-drag=off] {
 	display: none;
 }
