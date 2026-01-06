@@ -48,7 +48,7 @@ song-editor-modal {
 }
 
 .fade-out {
-  animation: fadeOut 3s forwards;
+  animation: fadeOut .15s forwards;
 }
 
 .notify-info {

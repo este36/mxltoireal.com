@@ -7,6 +7,8 @@ export const NotifyLevel = {
 	Error: 3,
 }
 
+const TIMEOUT = 3000;
+
 export class NotifyCard extends HTMLElement
 {
 	constructor(lvl, msg, onDestroy)
@@ -16,24 +18,57 @@ export class NotifyCard extends HTMLElement
 		this.lvl = lvl;
 		this.onDestroy = onDestroy;
 		this._destroyed = false;
+		this._destroyTimer = null;
+		this._timeoutResolve = null;
+		this.progressBar = null;
 	}
 
-	async _timeout()
-	{
-		await new Promise(r => setTimeout(r, 17000));
-		if (this._destroyed)
-			return;
+	async _fadeOut() {
 		this.classList.add('fade-out');
-		await new Promise(r => setTimeout(r, 3000));
-		this._destroy();
+		return new Promise(r => setTimeout(r, 150));
 	}
 
 	async _destroy() {
 		if (this._destroyed) return;
 		this._destroyed = true;
+		if (this._destroyTimer)
+			clearTimeout(this._destroyTimer);
+		await this._fadeOut();
 		this.remove();
 		this.onDestroy();
+		if (this._timeoutResolve) {
+			this._timeoutResolve();
+			this._timeoutResolve = null;
+		}
 	}
+
+	async _animateProgressBar() {
+		const start = performance.now();
+
+		while (!this._destroyed) {
+			const progress = Math.min(
+				(performance.now() - start) / TIMEOUT,
+				1
+			);
+			this.progressBar.value = progress * 100;
+			if (progress === 1) break;
+			await new Promise(r => requestAnimationFrame(r));
+		}
+	}
+
+	async timeout() {
+		return new Promise(resolve => {
+			this._timeoutResolve = resolve;
+			this._destroyTimer = setTimeout(async () => {
+				if (this._destroyed) return;
+				await this._fadeOut();
+				this._destroyTimer = null;
+				this._destroy();
+			}, TIMEOUT);
+			this._animateProgressBar();
+		});
+	}
+
 
 	connectedCallback()
 	{
@@ -63,11 +98,14 @@ export class NotifyCard extends HTMLElement
 		this.appendChild(msgText);
 		
 		const quitBtn = this.querySelector('btn-square-template');
-		quitBtn.addEventListener('click', () => {
-			this._destroy();
+		quitBtn.addEventListener('click', async () => {
+			if (!this._destroyed) {
+				if (this._destroyTimer) clearTimeout(this._destroyTimer);
+				this._destroy();
+			}
 		});
 
-		this._timeout();
+		this.progressBar = this.querySelector('progress');
 	}
 }
 
