@@ -33,7 +33,6 @@ export function updateFilesList() {
 }
 
 async function appendSong(file) {
-
 	return new Promise((resolve, reject) => {
 		if (!file.name.endsWith(".mxl")
 			&& !file.name.endsWith(".musicxml")
