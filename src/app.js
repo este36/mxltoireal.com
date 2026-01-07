@@ -3,6 +3,8 @@ import {Song} from './components/app/Song.js'
 import './components/app/BtnSquare.js';
 import * as mxl2irp from 'musicxml-irealpro';
 import { setLocalState, getLocalState } from './state.js';
+import { notifyUser } from './notify.js';
+import { NotifyLevel } from './components/app/NotifyCard.js';
 
 export let App;
 export let Templates;
@@ -32,11 +34,26 @@ export function updateFilesList() {
 
 async function appendSong(file) {
 	return new Promise((resolve, reject) => {
+		if (!file.name.endsWith(".mxl")
+			&& !file.name.endsWith(".musicxml")
+			&& !file.name.endsWith(".xml"))
+		{
+			notifyUser(
+				NotifyLevel.Error,
+				`imported file "${file.name}" not supported. Valid files are *.mxl, *.musicxml, or *.xml`
+			);
+			reject(new Error("ERROR_BAD_FILE_EXT"));
+			return;
+		}
 		const reader = new FileReader();
 		reader.onerror = () => reject(reader.error);
 		reader.onload = () => {
 			const mxl2irp_result = mxl2irp.getIRealProSong(new Uint8Array(reader.result), file.name);
 			if (mxl2irp_result.error_code != 0) {
+				notifyUser(
+					NotifyLevel.Error,
+					`file "${file.name}" content is corrupt`
+				);
 				reject(new Error(mxl2irp.get_error_code_str(mxl2irp_result.error_code)));
 				return;
 			}
@@ -70,7 +87,14 @@ async function initDropZone() {
 		dragCount = 0;
 		App.DropZone.dataset.drag = 'off';
 		for (const file of e.dataTransfer.files)
-			await appendSong(file);
+		{
+			try {
+				await appendSong(file);
+			}
+			catch (err) {
+				console.log(err);
+			}
+		}
 		updateFilesList();
 	});
 }
@@ -175,6 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		BtnSquare: document.getElementById('btn-square-template'),
 		DownloadFooter: document.getElementById('download-footer-template'),
 		SongEditorModal: document.getElementById('song-editor-modal-template'),
+		NotifyCard: document.getElementById('notify-card-template'),
 	};
 
 	const downloadFooter = document.createElement('div');
@@ -186,6 +211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	App = {
 		MainElement: document.querySelector('main'),
 		DropZone: document.getElementById('drop-zone'),
+		NotifyContainer: document.getElementById('notify-container'),
 		FilesList: document.getElementById('files-list'),
 		FilesCount: document.getElementById('files-count'),
 		DownloadFooter: document.getElementById('download-footer'),
@@ -210,8 +236,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 		inputFile.addEventListener('change', async (e) => {
 			for (const file of e.target.files) {
 				// const perf1 = performance.now()
-				await appendSong(file);
-				// console.log('appendSong', performance.now() - perf1 + 'ms')
+				try {
+					await appendSong(file);
+				}
+				catch (err) {
+					console.log(err);
+				}
+				//  console.log('appendSong', performance.now() - perf1 + 'ms')
 			}
 			updateFilesList();
 		});
